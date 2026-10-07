@@ -170,10 +170,24 @@ p { margin: 0; }
 .cols b { font-weight: 600; }
 .cols span { color: var(--muted); font-size: 0.93rem; }
 .awards { display: grid; gap: 0; list-style: none; margin: 0; padding: 0; }
-.awards li { display: grid; grid-template-columns: 120px 1fr; gap: 20px; padding-block: 13px; border-bottom: 1px solid var(--line); align-items: baseline; }
+.awards li { display: grid; grid-template-columns: 130px 1fr; gap: 20px; padding-block: 13px; border-bottom: 1px solid var(--line); align-items: baseline; }
 .awards li > * { min-width: 0; }
 .awards .tag { font: 500 0.72rem var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--marigold); }
 .awards .tag.win { color: var(--accent); }
+
+.subhead { font-size: 1.05rem; margin: 32px 0 6px; }
+#leadership h2 + .subhead { margin-top: 0; }
+#leadership .ticks { margin-top: 10px; }
+
+/* Creative */
+.channel-card { display: flex; gap: 18px; align-items: flex-start; padding: 20px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--fg); text-decoration: none; transition: border-color .15s ease, transform .15s ease; }
+.channel-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.play { flex-shrink: 0; width: 52px; height: 52px; border-radius: 12px; background: var(--accent); position: relative; }
+.play::after { content: ""; position: absolute; left: 21px; top: 16px; border-left: 14px solid var(--surface); border-top: 10px solid transparent; border-bottom: 10px solid transparent; }
+.channel-text { display: grid; gap: 4px; min-width: 0; }
+.channel-text b { font-family: var(--display); font-size: 1.25rem; letter-spacing: -0.01em; }
+.channel-text span { color: var(--muted); }
+.channel-text em { font: normal 500 0.8rem var(--mono); color: var(--accent); }
 
 /* Contact */
 .contact { background: var(--fg); color: var(--bg); border-radius: 18px; padding: clamp(28px, 5vw, 56px); display: grid; gap: 28px; }
@@ -229,6 +243,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <li><a href="#experience">Experience</a></li>
         <li><a href="#education">Education</a></li>
         <li><a href="#leadership">Leadership</a></li>
+        <li><a href="#creative">Creative</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
@@ -241,7 +256,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <div class="hero-text">
         <p class="eyebrow">M.Sc. Information Technology · Mumbai</p>
         <h1>Hritikesh <span class="last">Pandey</span></h1>
-        <p class="lede">I build data-backed web applications in <strong>Java and MySQL</strong>, turn raw operational data into <strong>Power BI dashboards</strong>, and co-authored published research on <strong>machine learning for crop yield prediction</strong>. Off the keyboard, I'm a public speaker, anchor and event lead.</p>
+        <p class="lede">I build data-backed web applications in <strong>Java and MySQL</strong>, turn raw operational data into <strong>Power BI dashboards</strong>, and co-authored published research on <strong>machine learning for crop yield prediction</strong>. Off the keyboard, I'm a public speaker, anchor, event lead and the creator of the YouTube channel <strong>HritikeSpeaks</strong>.</p>
         <div class="cta">
           <a class="btn btn-primary" href="#projects">See my projects</a>
           <a class="btn btn-ghost" href="#contact">Get in touch</a>
@@ -250,7 +265,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 
       <div class="query" role="img" aria-label="A SQL query returning a short profile of Hritikesh Pandey">
         <div class="query-bar"><i></i><i></i><i></i><span>profile.sql</span></div>
-<pre><span class="kw">SELECT</span> focus, stack, currently, published
+<pre><span class="kw">SELECT</span> *
 <span class="kw">FROM</span>   portfolio
 <span class="kw">WHERE</span>  name = <span class="str">'Hritikesh Pandey'</span>;
 <span class="dim">-- 1 row returned</span></pre>
@@ -260,7 +275,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <tr><th>stack</th><td>Java · MySQL · Power BI · HTML/CSS</td></tr>
             <tr><th>currently</th><td>M.Sc. IT, Thakur College (2025–27)</td></tr>
             <tr><th>published</th><td>IJRAR · ML crop yield prediction</td></tr>
-            <tr><th>speaks</th><td>Eminent Speaker, Youth Parliament 2025 <span class="cursor" aria-hidden="true"></span></td></tr>
+            <tr><th>speaks</th><td>Prime Minister &amp; Eminent Speaker, Youth Parliament 2025</td></tr>
+            <tr><th>creates</th><td>HritikeSpeaks on YouTube <span class="cursor" aria-hidden="true"></span></td></tr>
           </table>
         </div>
       </div>
@@ -289,7 +305,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <div class="skills">
           <div class="skill-group">
             <h4>Programming &amp; web</h4>
-            <ul class="chips"><li class="core">Java</li><li>HTML</li><li>CSS</li><li>MVC architecture</li></ul>
+            <ul class="chips"><li class="core">Java</li><li>HTML</li><li>CSS</li><li>Python (basics)</li><li>MVC / DAO architecture</li></ul>
           </div>
           <div class="skill-group">
             <h4>Databases</h4>
@@ -300,16 +316,20 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <ul class="chips"><li class="core">Power BI</li><li>Data analysis</li><li>Python for Data Science</li><li>Data Science fundamentals</li></ul>
           </div>
           <div class="skill-group">
-            <h4>Machine learning</h4>
-            <ul class="chips"><li>Supervised learning</li><li>Predictive modelling</li><li>Multivariate analysis</li></ul>
+            <h4>Machine learning &amp; research</h4>
+            <ul class="chips"><li>Supervised learning</li><li>Predictive modelling</li><li>Multivariate analysis</li><li>Research &amp; analytical thinking</li></ul>
           </div>
           <div class="skill-group">
-            <h4>Professional</h4>
-            <ul class="chips"><li>Team management</li><li>Cross-functional communication</li><li>Event coordination</li><li>Problem-solving</li></ul>
+            <h4>Tools</h4>
+            <ul class="chips"><li>Eclipse IDE</li><li>GitHub</li><li>Power BI Desktop</li><li>Canva</li></ul>
           </div>
           <div class="skill-group">
-            <h4>Communication</h4>
-            <ul class="chips"><li class="core">Public speaking</li><li>Anchoring</li><li>Debating</li><li>Podcasting</li></ul>
+            <h4>Leadership &amp; teamwork</h4>
+            <ul class="chips"><li>Leadership</li><li>Event management</li><li>Team collaboration</li><li>Cross-functional communication</li><li>Problem-solving</li></ul>
+          </div>
+          <div class="skill-group">
+            <h4>Communication &amp; content</h4>
+            <ul class="chips"><li class="core">Public speaking</li><li>Anchoring</li><li>Debate moderation</li><li>Podcasting</li><li>Content writing</li><li>Visual design</li></ul>
           </div>
         </div>
       </div>
@@ -325,12 +345,12 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 
           <article class="project">
             <div class="project-head">
-              <h3>THE BLANK: Home Service Web App</h3>
-              <ul class="stack"><li>Java</li><li>HTML</li><li>CSS</li><li>MySQL</li><li>MVC</li></ul>
+              <h3>THE BLANK: An Ultimate Home Service Companion Web App <span class="badge">Final-year project</span></h3>
+              <ul class="stack"><li>Java</li><li>HTML</li><li>CSS</li><li>MySQL</li><li>MVC + DAO</li></ul>
             </div>
-            <p class="summary">A full-stack web application that connects customers with on-demand home services such as cleaning, repair and maintenance, from browsing available services through to booking confirmation.</p>
+            <p class="summary">My B.Sc. IT final-year project: a full-stack web application that connects customers with on-demand home services such as cleaning, repair and maintenance, from browsing available services through to booking confirmation.</p>
             <dl class="facts">
-              <div><dt>Architecture</dt><dd>Structured the whole application on MVC, keeping data logic, business logic and presentation separate for maintainability.</dd></div>
+              <div><dt>Architecture</dt><dd>Built on a Model–Controller–DAO architecture, keeping data access, business logic and presentation separate for maintainability.</dd></div>
               <div><dt>Backend</dt><dd>Wrote the core Java logic for service listings, booking workflows and request processing.</dd></div>
               <div><dt>Database</dt><dd>Designed a relational MySQL schema for service categories, providers, bookings and transactions.</dd></div>
               <div><dt>Frontend</dt><dd>Built responsive HTML/CSS pages for searching services, viewing details and booking.</dd></div>
@@ -365,6 +385,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             </dl>
           </article>
 
+          <p class="summary" style="color: var(--muted);"><b style="color: var(--fg);">Earlier work:</b> interactive web pages and introductory Python programs built during my first B.Sc. IT semesters.</p>
+
         </div>
       </div>
     </div>
@@ -398,7 +420,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <p class="when">Dec 2020 – Aug 2022</p>
             <div>
               <h3>Exam Operations Coordinator</h3>
-              <p class="where">MeritTrac · TCS iON · Ginger</p>
+              <p class="where">Centre &amp; Server In-Charge · MeritTrac · TCS iON · Ginger</p>
               <ul class="ticks">
                 <li><b>Centre and server operations:</b> managed end-to-end setup and running of online examination centres, testing servers so infrastructure stayed stable through each session.</li>
                 <li><b>Technical support:</b> coordinated real-time support during high-stakes government and banking recruitment exams, fixing system issues with minimal disruption to candidates.</li>
@@ -419,7 +441,13 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <h2>Education</h2>
         <ol class="timeline">
           <li><p class="when">2025 – 2027</p><div><h3>M.Sc. Information Technology <span class="badge">Ongoing</span></h3><p class="where">Thakur College of Science and Commerce</p></div></li>
-          <li><p class="when">2022 – 2025</p><div><h3>B.Sc. Information Technology</h3><p class="where">Thakur College of Science and Commerce</p></div></li>
+          <li><p class="when">2022 – 2025</p><div><h3>B.Sc. Information Technology</h3><p class="where">Thakur College of Science and Commerce</p>
+            <ul class="ticks">
+              <li><b>First year:</b> completed all semesters with distinction, with a strong grounding in programming fundamentals and web technologies.</li>
+              <li><b>Second year:</b> scored highly in Software Engineering, Operating Systems and Database Management.</li>
+              <li><b>Third year:</b> built the final-year project THE BLANK in Java, HTML/CSS and MySQL.</li>
+              <li><b>Value-added courses:</b> German Language, Power BI and Bhagavad Gita.</li>
+            </ul></div></li>
           <li><p class="when">2019 – 2021</p><div><h3>Higher Secondary Certificate (HSC)</h3><p class="where">Thakur College of Science and Commerce</p></div></li>
           <li><p class="when">2019</p><div><h3>Secondary School Certificate (SSC)</h3><p class="where">Dr. H.B. Mishra English High School</p></div></li>
         </ol>
@@ -435,8 +463,10 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <ul class="cols">
           <li><b>Python for Data Science</b><span>NPTEL</span></li>
           <li><b>Remote Sensing &amp; Space Science</b><span>IIRS (ISRO) certification courses</span></li>
-          <li><b>Survey Research Program</b><span>DLLE</span></li>
-          <li><b>German Language Course (A1)</b><span>A1 level</span></li>
+          <li><b>Power BI</b><span>Value-added course, Thakur College</span></li>
+          <li><b>Survey Research Program</b><span>DLLE, 2023 – 2025</span></li>
+          <li><b>German Language (A1)</b><span>Value-added course, Thakur College</span></li>
+          <li><b>Bhagavad Gita</b><span>Value-added course, Thakur College</span></li>
         </ul>
       </div>
     </div>
@@ -447,20 +477,60 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <p class="label">Leadership</p>
       <div>
         <h2>Leadership &amp; achievements</h2>
+        <h3 class="subhead">Awards &amp; recognition</h3>
         <ul class="awards">
-          <li><span class="tag win">Winner</span><span>Best Boy of Department (IT / DS / AIML)</span></li>
+          <li><span class="tag win">Winner</span><span>Best College Award at TechBit 5.0, as Contingent Leader</span></li>
           <li><span class="tag win">Award</span><span>Eminent Speaker Award, Youth Parliament 2025</span></li>
+          <li><span class="tag win">Winner</span><span>Best Boy of Department (IT / DS / AIML)</span></li>
           <li><span class="tag">Nominee</span><span>Best Boy of the College</span></li>
-          <li><span class="tag">Lead</span><span>Anchoring Head for multiple college events</span></li>
-          <li><span class="tag">Lead</span><span>Student Manager, DLLE Survey Research</span></li>
-          <li><span class="tag">Delegate</span><span>Represented the college in debates, Model United Nations (MUNs) and social campaigns</span></li>
-          <li><span class="tag">Organiser</span><span>Awareness drives, old-age home visits and community social initiatives</span></li>
+          <li><span class="tag">Recognised</span><span>Multiple acknowledgements for anchoring and team coordination</span></li>
         </ul>
-        <h3 style="margin-top: 36px; margin-bottom: 12px;">Beyond the classroom</h3>
-        <ul class="chips">
-          <li>Content creator &amp; public speaker</li>
-          <li>Event hosting &amp; management</li>
-          <li>Podcasting &amp; debating</li>
+
+        <h3 class="subhead">Leadership roles</h3>
+        <ul class="awards">
+          <li><span class="tag">2022 – 25</span><span>Class Representative, IT-B</span></li>
+          <li><span class="tag">2 years</span><span>Anchoring Head, IT Department: led the coordination and hosting of student activities and cultural programmes</span></li>
+          <li><span class="tag">College</span><span>Assistant Contingent Leader for Outdoors</span></li>
+          <li><span class="tag">Department</span><span>Contingent Leader for Outdoors, IT Department</span></li>
+          <li><span class="tag">TechBit 5.0</span><span>Contingent Leader; the college won the Best College Award</span></li>
+        </ul>
+
+        <h3 class="subhead">Youth Parliament</h3>
+        <ul class="ticks">
+          <li>Represented the college for <b>three consecutive years</b>.</li>
+          <li>Served as <b>Prime Minister</b> in the 2025 session and received the <b>Eminent Speaker Award</b>.</li>
+          <li>Recognised for speech delivery, debate and policy presentation. Also represented the college in debates and Model United Nations (MUNs).</li>
+        </ul>
+
+        <h3 class="subhead">DLLE &amp; social initiatives</h3>
+        <ul class="ticks">
+          <li><b>Student Manager</b> for 2023–24 and 2024–25.</li>
+          <li>Completed the DLLE <b>Survey Research Project</b> (2023–25).</li>
+          <li>Organised a <b>Poster-Making Competition</b> as part of community outreach.</li>
+          <li>Organised awareness drives, old-age home visits and social campaigns.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="creative">
+    <div class="wrap row">
+      <p class="label">Creative</p>
+      <div>
+        <h2>Content &amp; speaking</h2>
+        <a class="channel-card" href="https://www.youtube.com/@HritikeSpeaks" target="_blank" rel="noopener">
+          <span class="play" aria-hidden="true"></span>
+          <span class="channel-text">
+            <b>HritikeSpeaks</b>
+            <span>My YouTube channel on geopolitics, social issues and history. I write the scripts myself, in Hindi, with a strong Indian context.</span>
+            <em>youtube.com/@HritikeSpeaks ↗</em>
+          </span>
+        </a>
+        <ul class="chips" style="margin-top: 20px;">
+          <li>Podcasting</li>
+          <li>Content creation</li>
+          <li>Anchoring &amp; event hosting</li>
+          <li>Debate moderation</li>
           <li>Social campaign management</li>
         </ul>
       </div>
