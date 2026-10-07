@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Hritikesh Pandey — M.Sc. IT student in Mumbai working across Java, MySQL, Power BI and machine learning. Projects, published research, experience and leadership.">
+<meta property="og:title" content="Hritikesh Pandey">
+<meta property="og:description" content="Projects, published research, experience and leadership.">
+<meta name="color-scheme" content="light dark">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Hritikesh Pandey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single 1080px column; hero pairs the name with a SQL "query result" card, then sections run as label-left / content-right rows */
+:root {
+  --bg: #f2f4ef;
+  --surface: #fbfcf9;
+  --fg: #182227;
+  --muted: #5a6762;
+  --line: #d6dcd3;
+  --accent: #2c6a4c;      /* field green */
+  --accent-soft: #e2ece4;
+  --marigold: #b9761a;    /* harvest amber, used sparingly */
+  --code-bg: #1b2a2a;
+  --code-fg: #dfe9e1;
+  --code-key: #9fd3b4;
+  --code-str: #f0c27a;
+  --code-dim: #7d918a;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Public Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11181a; --surface: #172124; --fg: #e5ebe5; --muted: #9aa8a2; --line: #2a3a3b;
+    --accent: #7cc39d; --accent-soft: #1d3329; --marigold: #e5ad5c;
+    --code-bg: #0b1112; --code-fg: #dfe9e1; --code-key: #9fd3b4; --code-str: #f0c27a; --code-dim: #6f827c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11181a; --surface: #172124; --fg: #e5ebe5; --muted: #9aa8a2; --line: #2a3a3b;
+  --accent: #7cc39d; --accent-soft: #1d3329; --marigold: #e5ad5c;
+  --code-bg: #0b1112; --code-fg: #dfe9e1; --code-key: #9fd3b4; --code-str: #f0c27a; --code-dim: #6f827c;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--body); font-size: 1rem; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 40px); }
+
+/* ---------- Nav ---------- */
+header.nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.nav .wrap { display: flex; align-items: center; gap: 24px; height: 58px; }
+.mark { font-family: var(--display); font-weight: 800; font-size: 1.1rem; letter-spacing: -0.02em; color: var(--fg); text-decoration: none; flex-shrink: 0; }
+.mark span { color: var(--accent); }
+.nav ul { list-style: none; margin: 0 0 0 auto; padding: 0; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; min-width: 0; }
+.nav ul::-webkit-scrollbar { display: none; }
+.nav li a { display: block; padding: 6px 10px; font-size: 0.875rem; font-weight: 500; color: var(--muted); text-decoration: none; border-radius: 6px; white-space: nowrap; }
+.nav li a:hover { color: var(--fg); background: var(--accent-soft); }
+
+/* ---------- Hero ---------- */
+.hero { padding-block: clamp(48px, 8vw, 96px) clamp(40px, 6vw, 72px); }
+.hero .wrap { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
+.hero-text { min-width: 0; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin: 0 0 18px; display: flex; align-items: center; gap: 10px; }
+.eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+h1 {
+  font-family: var(--display); font-weight: 800; letter-spacing: -0.035em; line-height: 0.92;
+  font-size: clamp(3rem, 8.5vw, 5.6rem); margin: 0 0 22px; text-wrap: balance;
+}
+h1 .last { color: var(--accent); display: block; }
+.lede { font-size: 1.125rem; color: var(--muted); max-width: 34em; margin: 0 0 28px; }
+.lede strong { color: var(--fg); font-weight: 600; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 8px;
+  font: 600 0.95rem var(--body); text-decoration: none; cursor: pointer; border: 1px solid transparent;
+  transition: transform .15s ease, background .15s ease;
+}
+.btn-primary { background: var(--fg); color: var(--bg); }
+.btn-ghost { border-color: var(--line); color: var(--fg); background: var(--surface); }
+.btn:hover { transform: translateY(-1px); }
+
+/* SQL card */
+.query {
+  min-width: 0; background: var(--code-bg); color: var(--code-fg); border-radius: 14px;
+  font-family: var(--mono); font-size: 0.82rem; line-height: 1.7; overflow: hidden;
+  box-shadow: 0 24px 48px -24px rgba(16, 40, 30, 0.45);
+}
+.query-bar { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.07); color: var(--code-dim); font-size: 0.75rem; }
+.query-bar i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.14); display: inline-block; }
+.query-bar span { margin-left: auto; }
+.query pre { margin: 0; padding: 16px 18px 6px; white-space: pre-wrap; word-break: break-word; font: inherit; }
+.kw { color: var(--code-key); font-weight: 500; }
+.str { color: var(--code-str); }
+.dim { color: var(--code-dim); }
+.result { padding: 4px 18px 18px; overflow-x: auto; }
+.result table { border-collapse: collapse; width: 100%; }
+.result th, .result td { text-align: left; padding: 6px 10px 6px 0; border-top: 1px dashed rgba(255,255,255,0.1); vertical-align: top; }
+.result th { color: var(--code-dim); font-weight: 400; white-space: nowrap; padding-right: 18px; }
+.cursor { display: inline-block; width: 8px; height: 1.05em; background: var(--code-key); vertical-align: text-bottom; animation: blink 1.1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ---------- Sections ---------- */
+section.block { padding-block: clamp(44px, 6vw, 72px); border-top: 1px solid var(--line); scroll-margin-top: 64px; }
+.row { display: grid; grid-template-columns: 220px 1fr; gap: clamp(20px, 4vw, 56px); }
+.row > * { min-width: 0; }
+.label { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0; padding-top: 6px; }
+h2 { font-family: var(--display); font-weight: 800; font-size: clamp(1.8rem, 3.6vw, 2.5rem); letter-spacing: -0.025em; line-height: 1.1; margin: 0 0 20px; text-wrap: balance; }
+h3 { font-family: var(--display); font-weight: 600; font-size: 1.3rem; letter-spacing: -0.015em; line-height: 1.25; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+.prose { max-width: 62ch; display: grid; gap: 14px; color: var(--fg); font-size: 1.05rem; }
+.prose .muted { color: var(--muted); }
+
+/* Skills */
+.skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 40px; }
+.skill-group h4 { margin: 0 0 10px; font: 600 0.95rem var(--body); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
+.chips li { padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; font-size: 0.875rem; background: var(--surface); }
+.chips li.core { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); font-weight: 500; }
+
+/* Projects */
+.projects { display: grid; gap: 20px; }
+.project { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: clamp(20px, 3vw, 30px); display: grid; gap: 16px; }
+.project-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; }
+.stack { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.stack li { font-family: var(--mono); font-size: 0.74rem; color: var(--muted); padding: 2px 8px; border-radius: 4px; background: var(--bg); border: 1px solid var(--line); }
+.project .summary { color: var(--muted); max-width: 70ch; }
+.facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 28px; margin: 0; }
+.facts div { min-width: 0; }
+.facts dt { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin-bottom: 3px; }
+.facts dd { margin: 0; font-size: 0.93rem; }
+
+/* Research */
+.paper { display: grid; gap: 16px; padding-left: 20px; border-left: 3px solid var(--marigold); }
+.journal { font-family: var(--mono); font-size: 0.8rem; color: var(--marigold); letter-spacing: 0.02em; }
+.ticks { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; max-width: 64ch; }
+.ticks li { position: relative; padding-left: 22px; }
+.ticks li::before { content: ""; position: absolute; left: 2px; top: 0.62em; width: 9px; height: 2px; background: var(--accent); }
+
+/* Timeline */
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.timeline > li { display: grid; grid-template-columns: 130px 1fr; gap: 20px; padding-block: 18px; border-bottom: 1px dashed var(--line); }
+.timeline > li:first-child { padding-top: 0; }
+.timeline > li:last-child { border-bottom: 0; padding-bottom: 0; }
+.timeline > li > * { min-width: 0; }
+.when { font-family: var(--mono); font-size: 0.82rem; color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 3px; }
+.where { color: var(--muted); font-size: 0.95rem; margin-top: 2px; }
+.badge { display: inline-block; margin-left: 8px; font: 500 0.7rem var(--mono); letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); padding: 2px 7px; border-radius: 4px; vertical-align: middle; }
+.timeline .ticks { margin-top: 14px; }
+
+/* Lists: certs / leadership / extracurricular */
+.cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 40px; list-style: none; margin: 0; padding: 0; }
+.cols li { padding-block: 12px; border-bottom: 1px solid var(--line); display: grid; gap: 2px; }
+.cols b { font-weight: 600; }
+.cols span { color: var(--muted); font-size: 0.93rem; }
+.awards { display: grid; gap: 0; list-style: none; margin: 0; padding: 0; }
+.awards li { display: grid; grid-template-columns: 120px 1fr; gap: 20px; padding-block: 13px; border-bottom: 1px solid var(--line); align-items: baseline; }
+.awards li > * { min-width: 0; }
+.awards .tag { font: 500 0.72rem var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--marigold); }
+.awards .tag.win { color: var(--accent); }
+
+/* Contact */
+.contact { background: var(--fg); color: var(--bg); border-radius: 18px; padding: clamp(28px, 5vw, 56px); display: grid; gap: 28px; }
+.contact h2 { color: var(--bg); margin: 0; font-size: clamp(2rem, 5vw, 3.2rem); }
+.contact p { color: color-mix(in srgb, var(--bg) 72%, var(--fg)); max-width: 46ch; }
+.channels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.channel { border: 1px solid color-mix(in srgb, var(--bg) 22%, var(--fg)); border-radius: 12px; padding: 16px; display: grid; gap: 8px; min-width: 0; }
+.channel small { font: 500 0.7rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--bg) 60%, var(--fg)); }
+.channel .val { font-weight: 600; overflow-wrap: anywhere; user-select: all; }
+.channel a { color: var(--bg); }
+.copy { justify-self: start; font: 500 0.8rem var(--body); background: transparent; color: var(--bg); border: 1px solid color-mix(in srgb, var(--bg) 35%, var(--fg)); border-radius: 6px; padding: 5px 10px; cursor: pointer; }
+.copy:hover { background: color-mix(in srgb, var(--bg) 12%, var(--fg)); }
+
+footer { padding-block: 28px 40px; color: var(--muted); font-size: 0.85rem; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+
+/* Load moment */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-text > *, .query { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
+  .hero-text > :nth-child(2) { animation-delay: .06s; }
+  .hero-text > :nth-child(3) { animation-delay: .12s; }
+  .hero-text > :nth-child(4) { animation-delay: .18s; }
+  .query { animation-delay: .25s; }
+  @keyframes rise { from { transform: translateY(14px); opacity: .001; } to { transform: none; opacity: 1; } }
+}
+@media (prefers-reduced-motion: reduce) { .cursor { animation: none; } html { scroll-behavior: auto; } }
+
+/* Responsive */
+@media (max-width: 860px) {
+  .hero .wrap { grid-template-columns: 1fr; }
+  .row { grid-template-columns: 1fr; gap: 14px; }
+  .channels { grid-template-columns: 1fr; }
+}
+@media (max-width: 620px) {
+  .skills, .facts, .cols { grid-template-columns: 1fr; }
+  .timeline > li, .awards li { grid-template-columns: 1fr; gap: 4px; }
+  .nav .wrap { gap: 12px; }
+  .query { font-size: 0.76rem; }
+}
+</style>
+
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="mark" href="#top">HP<span>.</span></a>
+    <nav aria-label="Sections">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#leadership">Leadership</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-text">
+        <p class="eyebrow">M.Sc. Information Technology · Mumbai</p>
+        <h1>Hritikesh <span class="last">Pandey</span></h1>
+        <p class="lede">I build data-backed web applications in <strong>Java and MySQL</strong>, turn raw operational data into <strong>Power BI dashboards</strong>, and co-authored published research on <strong>machine learning for crop yield prediction</strong>. Off the keyboard, I'm a public speaker, anchor and event lead.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#projects">See my projects</a>
+          <a class="btn btn-ghost" href="#contact">Get in touch</a>
+        </div>
+      </div>
+
+      <div class="query" role="img" aria-label="A SQL query returning a short profile of Hritikesh Pandey">
+        <div class="query-bar"><i></i><i></i><i></i><span>profile.sql</span></div>
+<pre><span class="kw">SELECT</span> focus, stack, currently, published
+<span class="kw">FROM</span>   portfolio
+<span class="kw">WHERE</span>  name = <span class="str">'Hritikesh Pandey'</span>;
+<span class="dim">-- 1 row returned</span></pre>
+        <div class="result">
+          <table>
+            <tr><th>focus</th><td>Data Science &amp; Business Intelligence</td></tr>
+            <tr><th>stack</th><td>Java · MySQL · Power BI · HTML/CSS</td></tr>
+            <tr><th>currently</th><td>M.Sc. IT, Thakur College (2025–27)</td></tr>
+            <tr><th>published</th><td>IJRAR · ML crop yield prediction</td></tr>
+            <tr><th>speaks</th><td>Eminent Speaker, Youth Parliament 2025 <span class="cursor" aria-hidden="true"></span></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="about">
+    <div class="wrap row">
+      <p class="label">About</p>
+      <div>
+        <h2>Technical operations, data, and a stage voice</h2>
+        <div class="prose">
+          <p>I'm an M.Sc. Information Technology student at Thakur College of Science and Commerce, after completing my B.Sc. IT there in 2025. My work sits where software meets data: I design relational databases, write the Java logic around them, and build dashboards that make the numbers readable.</p>
+          <p>Before my degree, I spent almost two years running online examination centres for MeritTrac, TCS iON and Ginger. That meant keeping servers stable during high-stakes government and banking recruitment exams, and solving problems fast with hundreds of candidates waiting.</p>
+          <p class="muted">I'm drawn to Data Science and Business Intelligence, with a record of applying machine learning and analytical thinking to real-world problems such as agriculture.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="skills">
+    <div class="wrap row">
+      <p class="label">Skills</p>
+      <div>
+        <h2>What I work with</h2>
+        <div class="skills">
+          <div class="skill-group">
+            <h4>Programming &amp; web</h4>
+            <ul class="chips"><li class="core">Java</li><li>HTML</li><li>CSS</li><li>MVC architecture</li></ul>
+          </div>
+          <div class="skill-group">
+            <h4>Databases</h4>
+            <ul class="chips"><li class="core">MySQL</li><li>Schema design</li><li>Querying</li><li>Data management</li></ul>
+          </div>
+          <div class="skill-group">
+            <h4>Data, analytics &amp; BI</h4>
+            <ul class="chips"><li class="core">Power BI</li><li>Data analysis</li><li>Python for Data Science</li><li>Data Science fundamentals</li></ul>
+          </div>
+          <div class="skill-group">
+            <h4>Machine learning</h4>
+            <ul class="chips"><li>Supervised learning</li><li>Predictive modelling</li><li>Multivariate analysis</li></ul>
+          </div>
+          <div class="skill-group">
+            <h4>Professional</h4>
+            <ul class="chips"><li>Team management</li><li>Cross-functional communication</li><li>Event coordination</li><li>Problem-solving</li></ul>
+          </div>
+          <div class="skill-group">
+            <h4>Communication</h4>
+            <ul class="chips"><li class="core">Public speaking</li><li>Anchoring</li><li>Debating</li><li>Podcasting</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="projects">
+    <div class="wrap row">
+      <p class="label">Projects</p>
+      <div>
+        <h2>Things I've built</h2>
+        <div class="projects">
+
+          <article class="project">
+            <div class="project-head">
+              <h3>THE BLANK: Home Service Web App</h3>
+              <ul class="stack"><li>Java</li><li>HTML</li><li>CSS</li><li>MySQL</li><li>MVC</li></ul>
+            </div>
+            <p class="summary">A full-stack web application that connects customers with on-demand home services such as cleaning, repair and maintenance, from browsing available services through to booking confirmation.</p>
+            <dl class="facts">
+              <div><dt>Architecture</dt><dd>Structured the whole application on MVC, keeping data logic, business logic and presentation separate for maintainability.</dd></div>
+              <div><dt>Backend</dt><dd>Wrote the core Java logic for service listings, booking workflows and request processing.</dd></div>
+              <div><dt>Database</dt><dd>Designed a relational MySQL schema for service categories, providers, bookings and transactions.</dd></div>
+              <div><dt>Frontend</dt><dd>Built responsive HTML/CSS pages for searching services, viewing details and booking.</dd></div>
+            </dl>
+          </article>
+
+          <article class="project">
+            <div class="project-head">
+              <h3>Online Quiz &amp; Learning Platform</h3>
+              <ul class="stack"><li>Java</li><li>HTML</li><li>CSS</li><li>MySQL</li><li>Power BI</li></ul>
+            </div>
+            <p class="summary">A web-based quiz and learning platform where users take timed quizzes, get instant scores and track their performance over time. Built as a team project.</p>
+            <dl class="facts">
+              <div><dt>Backend</dt><dd>Contributed Java logic for question handling, automated scoring and sessions for many concurrent quiz-takers.</dd></div>
+              <div><dt>Database</dt><dd>Helped design the MySQL schema for question banks, user profiles and quiz results.</dd></div>
+              <div><dt>Frontend</dt><dd>Built quiz screens with timers, progress indicators and instant results.</dd></div>
+              <div><dt>Analytics</dt><dd>Added a Power BI dashboard showing quiz performance trends across users and topics.</dd></div>
+            </dl>
+          </article>
+
+          <article class="project">
+            <div class="project-head">
+              <h3>Inventory &amp; Sales Analytics System</h3>
+              <ul class="stack"><li>Java</li><li>MySQL</li><li>Power BI</li></ul>
+            </div>
+            <p class="summary">An inventory and sales-tracking system for a small retail or warehouse business, turning day-to-day operational data into business insight.</p>
+            <dl class="facts">
+              <div><dt>Backend</dt><dd>Contributed to the Java layer for stock updates, sales transaction logging and supplier data.</dd></div>
+              <div><dt>Database</dt><dd>Helped design a relational MySQL database for inventory, sales and suppliers with consistent integrity.</dd></div>
+              <div><dt>BI dashboard</dt><dd>Built Power BI dashboards for sales trends, low-stock alerts and revenue by product category.</dd></div>
+              <div><dt>Outcome</dt><dd>Practical, team-based experience translating raw operational data into decisions.</dd></div>
+            </dl>
+          </article>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="research">
+    <div class="wrap row">
+      <p class="label">Research</p>
+      <div>
+        <h2>Published research</h2>
+        <div class="paper">
+          <h3>Crop Yield Prediction using Machine Learning on Multivariate Agriculture</h3>
+          <p class="journal">Co-author · IJRAR (International Journal of Research and Analytical Reviews)</p>
+          <ul class="ticks">
+            <li><b>Data analysis:</b> worked on multivariate agricultural datasets, using statistical and analytical techniques to find the factors that drive yield.</li>
+            <li><b>Predictive modelling:</b> helped design and evaluate machine learning models that forecast crop yields more accurately.</li>
+            <li><b>Applied AI:</b> explored how AI can improve productivity and support data-driven farming decisions.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="experience">
+    <div class="wrap row">
+      <p class="label">Experience</p>
+      <div>
+        <h2>Work experience</h2>
+        <ol class="timeline">
+          <li>
+            <p class="when">Dec 2020 – Aug 2022</p>
+            <div>
+              <h3>Exam Operations Coordinator</h3>
+              <p class="where">MeritTrac · TCS iON · Ginger</p>
+              <ul class="ticks">
+                <li><b>Centre and server operations:</b> managed end-to-end setup and running of online examination centres, testing servers so infrastructure stayed stable through each session.</li>
+                <li><b>Technical support:</b> coordinated real-time support during high-stakes government and banking recruitment exams, fixing system issues with minimal disruption to candidates.</li>
+                <li><b>Large-scale execution:</b> kept large examinations running smoothly and on schedule, often for hundreds of candidates per session across multiple centres.</li>
+                <li><b>System administration:</b> assisted with candidate verification, data logging and compliance with exam protocols.</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="education">
+    <div class="wrap row">
+      <p class="label">Education</p>
+      <div>
+        <h2>Education</h2>
+        <ol class="timeline">
+          <li><p class="when">2025 – 2027</p><div><h3>M.Sc. Information Technology <span class="badge">Ongoing</span></h3><p class="where">Thakur College of Science and Commerce</p></div></li>
+          <li><p class="when">2022 – 2025</p><div><h3>B.Sc. Information Technology</h3><p class="where">Thakur College of Science and Commerce</p></div></li>
+          <li><p class="when">2019 – 2021</p><div><h3>Higher Secondary Certificate (HSC)</h3><p class="where">Thakur College of Science and Commerce</p></div></li>
+          <li><p class="when">2019</p><div><h3>Secondary School Certificate (SSC)</h3><p class="where">Dr. H.B. Mishra English High School</p></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="certifications">
+    <div class="wrap row">
+      <p class="label">Certifications</p>
+      <div>
+        <h2>Certifications</h2>
+        <ul class="cols">
+          <li><b>Python for Data Science</b><span>NPTEL</span></li>
+          <li><b>Remote Sensing &amp; Space Science</b><span>IIRS (ISRO) certification courses</span></li>
+          <li><b>Survey Research Program</b><span>DLLE</span></li>
+          <li><b>German Language Course (A1)</b><span>A1 level</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="leadership">
+    <div class="wrap row">
+      <p class="label">Leadership</p>
+      <div>
+        <h2>Leadership &amp; achievements</h2>
+        <ul class="awards">
+          <li><span class="tag win">Winner</span><span>Best Boy of Department (IT / DS / AIML)</span></li>
+          <li><span class="tag win">Award</span><span>Eminent Speaker Award, Youth Parliament 2025</span></li>
+          <li><span class="tag">Nominee</span><span>Best Boy of the College</span></li>
+          <li><span class="tag">Lead</span><span>Anchoring Head for multiple college events</span></li>
+          <li><span class="tag">Lead</span><span>Student Manager, DLLE Survey Research</span></li>
+          <li><span class="tag">Delegate</span><span>Represented the college in debates, Model United Nations (MUNs) and social campaigns</span></li>
+          <li><span class="tag">Organiser</span><span>Awareness drives, old-age home visits and community social initiatives</span></li>
+        </ul>
+        <h3 style="margin-top: 36px; margin-bottom: 12px;">Beyond the classroom</h3>
+        <ul class="chips">
+          <li>Content creator &amp; public speaker</li>
+          <li>Event hosting &amp; management</li>
+          <li>Podcasting &amp; debating</li>
+          <li>Social campaign management</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="contact">
+    <div class="wrap">
+      <div class="contact">
+        <div style="display:grid; gap:12px;">
+          <h2>Let's talk.</h2>
+          <p>Open to internships and roles in data analysis, business intelligence and software development. The fastest way to reach me is email.</p>
+        </div>
+        <div class="channels">
+          <div class="channel">
+            <small>Email</small>
+            <span class="val" id="email-val">hritikeshpandey18@gmail.com</span>
+            <button class="copy" type="button" id="copy-email" data-copy="hritikeshpandey18@gmail.com">Copy email</button>
+          </div>
+          <div class="channel">
+            <small>LinkedIn</small>
+            <span class="val"><a href="https://www.linkedin.com/in/hritikeshpandey" target="_blank" rel="noopener">linkedin.com/in/hritikeshpandey</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Hritikesh Pandey</span>
+    <a href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.copy').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var text = btn.getAttribute('data-copy');
+    var label = btn.textContent;
+    var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = label; }, 1600); };
+    var fallback = function () {
+      var el = btn.previousElementSibling;
+      var r = document.createRange(); r.selectNodeContents(el);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = 'Selected, press Ctrl+C';
+      setTimeout(function () { btn.textContent = label; }, 2200);
+    };
+    try {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } catch (e) { fallback(); }
+  });
+});
+</script>
+</body>
+</html>
