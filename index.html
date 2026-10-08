@@ -144,7 +144,7 @@ header.nav { position: sticky; top: calc(10px + env(safe-area-inset-top, 0px)); 
 /* ---------- Hero ---------- */
 .hero { padding-block: clamp(40px, 6vw, 72px) clamp(28px, 4vw, 48px); }
 .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr); gap: clamp(28px, 4vw, 56px); align-items: center; }
-.intro { position: relative; isolation: isolate; }
+.intro { position: relative; isolation: isolate; transform: perspective(1400px) rotateY(var(--iy, 0deg)) rotateX(var(--ix, 0deg)); transform-style: preserve-3d; }
 .intro::before { content: ""; position: absolute; inset: -60px -80px; z-index: -1; pointer-events: none; background: radial-gradient(closest-side, rgba(2, 4, 11, 0.75), rgba(2, 4, 11, 0.4) 60%, transparent); }
 .badge { display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px 7px 12px; border-radius: 999px; background: rgba(79, 214, 160, 0.1); border: 1px solid rgba(79, 214, 160, 0.3); color: var(--fg); font-size: 0.86rem; font-weight: 600; margin-bottom: 22px; }
 .badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #4fd6a0; box-shadow: 0 0 10px #4fd6a0; animation: blip 2.2s ease-in-out infinite; }
@@ -154,7 +154,8 @@ header.nav { position: sticky; top: calc(10px + env(safe-area-inset-top, 0px)); 
 .badge.alt::before { background: var(--accent); box-shadow: 0 0 10px var(--accent); animation: none; }
 h1 { font: 700 clamp(2.6rem, 5.6vw, 4.2rem)/1.03 var(--display); letter-spacing: -0.045em; margin-bottom: 14px;
   background: linear-gradient(100deg, #fff 20%, #ffe2b0 38%, #fff 50%, #a8dbff 66%, #fff 82%) 0 0 / 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
-  filter: drop-shadow(0 0 28px rgba(160, 200, 255, 0.22)); animation: starlight 12s ease-in-out infinite alternate; }
+  filter: drop-shadow(0 1px 0 rgba(150, 185, 255, 0.55)) drop-shadow(0 2px 0 rgba(110, 150, 245, 0.45)) drop-shadow(0 3px 0 rgba(80, 120, 230, 0.35)) drop-shadow(0 4px 0 rgba(55, 95, 210, 0.25)) drop-shadow(0 14px 26px rgba(40, 90, 255, 0.45));
+  animation: starlight 12s ease-in-out infinite alternate; }
 @keyframes starlight { to { background-position: 100% 0; } }
 .roleline { font: 600 clamp(0.95rem, 1.35vw, 1.05rem)/1.5 var(--body); color: var(--fg); margin-bottom: 16px; }
 .roleline span { padding-inline: 4px !important; }
@@ -237,7 +238,7 @@ main { counter-reset: sec; }
 .sec .eyebrow::after { content: ""; flex: 0 1 140px; height: 1px; margin-left: 6px; background: linear-gradient(90deg, color-mix(in srgb, var(--c, var(--accent)) 55%, transparent), transparent); }
 h2 { font: 600 clamp(1.75rem, 3.4vw, 2.5rem)/1.15 var(--display); letter-spacing: -0.035em;
   background: linear-gradient(100deg, #fff 0 40%, color-mix(in srgb, var(--c, var(--accent)) 75%, #fff) 55%, #fff 70%) 100% 0 / 260% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
-  filter: drop-shadow(0 0 24px color-mix(in srgb, var(--c, var(--accent)) 20%, transparent)); transition: background-position 1.8s cubic-bezier(.2, .7, .2, 1); }
+  filter: drop-shadow(0 1px 0 rgba(140, 175, 255, 0.4)) drop-shadow(0 2px 0 rgba(90, 130, 235, 0.3)) drop-shadow(0 10px 22px color-mix(in srgb, var(--c, var(--accent)) 30%, transparent)); transition: background-position 1.8s cubic-bezier(.2, .7, .2, 1); }
 .in h2, h2.in, html:not(.anim) h2 { background-position: 0 0; }
 .sec-head:hover h2 { background-position: 40% 0; }
 .sec-head p { font-size: 1.05rem; max-width: 62ch; }
@@ -291,8 +292,15 @@ html.anim .reveal:not(.in) { opacity: 0; transform: perspective(1100px) translat
 .bring span { font-size: 0.95rem; }
 .interests { margin-top: 28px; display: grid; gap: 12px; }
 .glance { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: clamp(28px, 4vw, 44px); }
-.glance div { padding: 18px 20px; border-radius: 16px; border: 1px solid var(--line); background: var(--panel); display: grid; gap: 2px; transition: border-color .3s, transform .35s cubic-bezier(.2, .7, .2, 1), box-shadow .3s; }
-.glance div:hover { transform: translateY(-4px); border-color: rgba(255, 181, 71, 0.4); box-shadow: 0 0 40px -18px var(--sun); }
+.glance { perspective: 1000px; }
+.glance div { padding: 22px 18px; border-radius: 18px; border: 1px solid transparent; display: grid; justify-items: center; text-align: center; gap: 4px; transform-style: preserve-3d;
+  background: linear-gradient(160deg, rgba(17, 29, 66, 0.9), rgba(7, 12, 32, 0.93)) padding-box, linear-gradient(150deg, rgba(255, 200, 120, 0.4), rgba(150, 200, 255, 0.08) 40%, rgba(150, 200, 255, 0.3)) border-box;
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--ty, 0px)); transition: transform .6s cubic-bezier(.2, .7, .2, 1), box-shadow .3s;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 26px 50px -30px rgba(0, 0, 0, 0.95); }
+.glance div.tilting { transition: transform .12s linear, box-shadow .3s; }
+.glance b, .glance small { transform: translateZ(34px); }
+.glance b { filter: drop-shadow(0 2px 0 rgba(255, 190, 110, 0.35)) drop-shadow(0 10px 18px rgba(255, 170, 60, 0.35)); }
+.glance div:hover { --ty: -6px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 30px 60px -30px rgba(0, 0, 0, 0.95), 0 0 46px -18px var(--sun); }
 .glance b { background: linear-gradient(180deg, #fff 30%, #ffd796); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .glance b { font: 600 clamp(1.9rem, 3.6vw, 2.5rem)/1.05 var(--display); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
 .glance small { font-size: 0.86rem; font-weight: 700; color: var(--muted); }
@@ -1220,7 +1228,7 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
 
   /* ================= 3D universe (sky + starfield) ================= */
   var cv = document.getElementById('stars'), ctx = cv.getContext('2d');
-  var W = 0, H = 0, stars = [], sky = null, SKY_M = 1.2, shoot = null, nextShoot = 4000;
+  var W = 0, H = 0, stars = [], sky = null, neb = null, SKY_M = 1.32, shoot = null, nextShoot = 4000;
   var mx = 0, my = 0, cmx = 0, cmy = 0, last = 0, warp = 0, lastSY = window.scrollY || 0;
   var TINTS = ['#ffffff', '#ffffff', '#eef4ff', '#dce8ff', '#cfe0ff', '#bcd4ff', '#fff4e6', '#ffe2bf'];
   function rnd(a, b) { return a + Math.random() * (b - a); }
@@ -1246,7 +1254,7 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
       g.fillStyle = 'rgba(255,248,240,' + (rnd(0.1, 0.55) * Math.max(0.08, 1 - Math.abs(off) / (u * 0.12))).toFixed(3) + ')';
       var r = rnd(0.5, 1.4); g.fillRect(p[0], p[1], r, r);
     }
-    paintNebula(g, sw, sh);
+    var hw = Math.round(sw / 2), hh = Math.round(sh / 2); neb = document.createElement('canvas'); neb.width = hw; neb.height = hh; paintNebula(neb.getContext('2d'), hw, hh);
     g.globalCompositeOperation = 'source-over';
     for (i = 0; i < 90; i++) { p = onBand(Math.random(), gauss() * u * 0.02 + u * 0.012); blob(p[0], p[1], rnd(0.012, 0.045) * u, '2,6,23', rnd(0.3, 0.5)); }
     g.globalCompositeOperation = 'lighter';
@@ -1272,7 +1280,7 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
   }
   /* Emission nebulae in the "Hubble palette": domain-warped noise coloured teal (oxygen), blue and magenta (hydrogen) */
   function paintNebula(g, sw, sh) {
-    var nw = Math.max(60, Math.round(sw / 4)), nh = Math.max(40, Math.round(sh / 4)), asp = nw / nh, sz = Math.random() * 50;
+    var nw = Math.max(60, Math.round(sw / 2)), nh = Math.max(40, Math.round(sh / 2)), asp = nw / nh, sz = Math.random() * 50;
     var nc = document.createElement('canvas'); nc.width = nw; nc.height = nh;
     var nctx = nc.getContext('2d'), im = nctx.createImageData(nw, nh), d = im.data;
     var clouds = [[0.8, 0.2, 0.46], [0.12, 0.8, 0.42], [0.55, 0.62, 0.22]];
@@ -1285,7 +1293,7 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
       if (dens <= 0) continue;
       var hu = fbm(px * 0.7 + 9, py * 0.7, sz + 7, 3), col = hu < 0.5 ? mix([25, 140, 215], [45, 85, 235], sstep(0.3, 0.5, hu)) : mix([45, 85, 235], [115, 75, 225], sstep(0.5, 0.7, hu));
       var fil = Math.pow(Math.max(0, 1 - Math.abs(n - 0.62) * 9), 3) * dens;
-      var k = dens * 0.42;
+      var k = dens * 0.36;
       d[o] = col[0] * k + 130 * fil; d[o + 1] = col[1] * k + 165 * fil; d[o + 2] = col[2] * k + 220 * fil;
     }
     nctx.putImageData(im, 0, 0);
@@ -1309,24 +1317,45 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
     if (Math.sin(t * 0.008) > 0.6) { c.fillStyle = '#ff6b6b'; c.beginPath(); c.arc(-s * 0.4, -s * 0.42, Math.max(1, s * 0.04), 0, 6.283); c.fill(); c.fillStyle = '#6bff9b'; c.beginPath(); c.arc(-s * 0.4, s * 0.42, Math.max(1, s * 0.04), 0, 6.283); c.fill(); }
     c.restore();
   }
-  var ships = [], nextShip = 2500;
-  function launchShip() {
-    var side = Math.random() < 0.5 ? -1 : 1, y0 = rnd(0.12, 0.85) * H, sp = rnd(70, 150), far = Math.random() < 0.45;
-    var ang = (side < 0 ? 0 : Math.PI) + rnd(-0.25, 0.25);
-    ships.push({ x: side < 0 ? -60 : W + 60, y: y0, a: ang, va: rnd(-0.06, 0.06), sp: far ? sp * 0.55 : sp, s: far ? rnd(9, 13) : rnd(16, 24), al: far ? 0.55 : 0.9, trail: [] });
+  /* Flying saucer: metallic disc, glass dome, chasing rim lights, occasional tractor beam */
+  function drawUFO(c, x, y, s, tiltA, t, alpha, beam) {
+    c.save(); c.translate(x, y); c.rotate(tiltA); c.globalAlpha = alpha;
+    var gl = c.createRadialGradient(0, s * 0.18, 0, 0, s * 0.18, s * 1.25); gl.addColorStop(0, 'rgba(120,220,255,0.32)'); gl.addColorStop(1, 'rgba(120,220,255,0)');
+    c.fillStyle = gl; c.beginPath(); c.ellipse(0, s * 0.18, s * 1.25, s * 0.55, 0, 0, 6.283); c.fill();
+    if (beam > 0.01) {
+      var bm = c.createLinearGradient(0, s * 0.2, 0, s * 2.6); bm.addColorStop(0, 'rgba(160,235,255,' + (0.32 * beam).toFixed(3) + ')'); bm.addColorStop(1, 'rgba(160,235,255,0)');
+      c.fillStyle = bm; c.beginPath(); c.moveTo(-s * 0.24, s * 0.18); c.lineTo(s * 0.24, s * 0.18); c.lineTo(s * 0.85, s * 2.6); c.lineTo(-s * 0.85, s * 2.6); c.closePath(); c.fill();
+    }
+    var dg = c.createRadialGradient(-s * 0.12, -s * 0.34, 0, 0, -s * 0.14, s * 0.44); dg.addColorStop(0, 'rgba(235,252,255,0.97)'); dg.addColorStop(0.45, 'rgba(110,205,255,0.8)'); dg.addColorStop(1, 'rgba(25,70,150,0.7)');
+    c.fillStyle = dg; c.beginPath(); c.ellipse(0, -s * 0.08, s * 0.38, s * 0.34, 0, Math.PI, 2 * Math.PI); c.fill();
+    var sg = c.createLinearGradient(0, -s * 0.16, 0, s * 0.22); sg.addColorStop(0, '#f2f5fc'); sg.addColorStop(0.45, '#9ea9c3'); sg.addColorStop(1, '#3a4360');
+    c.fillStyle = sg; c.beginPath(); c.ellipse(0, 0, s, s * 0.22, 0, 0, 6.283); c.fill();
+    c.strokeStyle = 'rgba(255,255,255,0.55)'; c.lineWidth = Math.max(0.6, s * 0.03); c.beginPath(); c.ellipse(0, -s * 0.03, s * 0.9, s * 0.15, 0, Math.PI * 1.06, Math.PI * 1.94); c.stroke();
+    c.fillStyle = '#262d45'; c.beginPath(); c.ellipse(0, s * 0.13, s * 0.52, s * 0.11, 0, 0, Math.PI); c.fill();
+    for (var k = 0; k < 7; k++) {
+      var ax = (-0.72 + k * 0.24) * s, lit = (Math.floor(t / 160) + k) % 3 === 0;
+      c.fillStyle = lit ? '#a8f6ff' : 'rgba(120,200,255,0.35)'; c.beginPath(); c.arc(ax, s * 0.06, Math.max(0.8, s * 0.048), 0, 6.283); c.fill();
+      if (lit) { c.globalAlpha = alpha * 0.3; c.beginPath(); c.arc(ax, s * 0.06, s * 0.14, 0, 6.283); c.fill(); c.globalAlpha = alpha; }
+    }
+    c.restore();
+  }
+  var ufos = [], nextUfo = 2500;
+  function launchUfo() {
+    var dir = Math.random() < 0.5 ? 1 : -1, far = Math.random() < 0.45;
+    ufos.push({ x: dir > 0 ? -80 : W + 80, y0: rnd(0.12, 0.78) * H, dir: dir, sp: far ? rnd(35, 60) : rnd(60, 110), s: far ? rnd(9, 13) : rnd(20, 30), al: far ? 0.6 : 0.95,
+      ph: rnd(0, 6.28), amp: rnd(10, 30), beamAt: rnd(0.3, 0.7), beam: 0, y: 0, t0: 0 });
   }
   function updateShips(t, dt) {
-    nextShip -= dt * 1000;
-    if (nextShip <= 0 && ships.length < 3) { launchShip(); nextShip = rnd(7000, 14000); }
-    for (var i = ships.length - 1; i >= 0; i--) {
-      var sh = ships[i]; sh.a += sh.va * dt; sh.x += Math.cos(sh.a) * sh.sp * dt; sh.y += Math.sin(sh.a) * sh.sp * dt;
-      sh.trail.push([sh.x - Math.cos(sh.a) * sh.s * 0.5, sh.y - Math.sin(sh.a) * sh.s * 0.5]); if (sh.trail.length > 40) sh.trail.shift();
-      for (var k = 1; k < sh.trail.length; k++) {
-        ctx.globalAlpha = (k / sh.trail.length) * 0.35 * sh.al; ctx.strokeStyle = '#7fb8ff'; ctx.lineWidth = sh.s * 0.12 * (k / sh.trail.length);
-        ctx.beginPath(); ctx.moveTo(sh.trail[k - 1][0], sh.trail[k - 1][1]); ctx.lineTo(sh.trail[k][0], sh.trail[k][1]); ctx.stroke();
-      }
-      drawShip(ctx, sh.x, sh.y, sh.a, sh.s, 0.7, t, sh.al);
-      if (sh.x < -120 || sh.x > W + 120 || sh.y < -120 || sh.y > H + 120) ships.splice(i, 1);
+    nextUfo -= dt * 1000;
+    if (nextUfo <= 0 && ufos.length < 3) { launchUfo(); nextUfo = rnd(6000, 13000); }
+    for (var i = ufos.length - 1; i >= 0; i--) {
+      var u = ufos[i]; u.ph += dt * 1.6;
+      var prog = u.dir > 0 ? u.x / W : 1 - u.x / W, hovering = Math.abs(prog - u.beamAt) < 0.06;
+      u.beam += ((hovering ? 1 : 0) - u.beam) * Math.min(1, dt * 3);
+      u.x += u.dir * u.sp * dt * (hovering ? 0.25 : 1);
+      u.y = u.y0 + Math.sin(u.ph) * u.amp;
+      drawUFO(ctx, u.x, u.y, u.s, Math.cos(u.ph) * 0.12 + u.dir * 0.06, t, u.al, u.beam);
+      if (u.x < -140 || u.x > W + 140) ufos.splice(i, 1);
     }
     ctx.globalAlpha = 1;
   }
@@ -1342,7 +1371,16 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
     cmx += (mx - cmx) * 0.05; cmy += (my - cmy) * 0.05;
     var sy = window.scrollY || 0, mgx = (SKY_M - 1) / 2 * W, mgy = (SKY_M - 1) / 2 * H;
     ctx.globalAlpha = 1;
-    ctx.drawImage(sky, Math.round(-mgx - cmx * mgx * 0.8), Math.round(-mgy - cmy * mgy * 0.6 - Math.min(sy * 0.02, mgy * 0.35)), sky.width, sky.height);
+    var tt = reduced ? 0 : t, scY = Math.min(sy * 0.02, mgy * 0.3);
+    /* far layer: Milky Way and galaxies turn slowly, like the night sky */
+    ctx.save(); ctx.translate(W / 2 - cmx * mgx * 0.45, H / 2 - cmy * mgy * 0.4 - scY);
+    ctx.rotate(Math.sin(tt * 0.00005) * 0.05 + tt * 0.0000015); ctx.scale(1.03 + 0.025 * Math.sin(tt * 0.00008), 1.03 + 0.025 * Math.sin(tt * 0.00008));
+    ctx.drawImage(sky, -sky.width / 2, -sky.height / 2); ctx.restore();
+    /* near layer: nebulae drift faster and further with the pointer, giving depth */
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    ctx.translate(W / 2 - cmx * mgx * 1.05 + Math.sin(tt * 0.00006) * W * 0.03, H / 2 - cmy * mgy * 0.9 - scY * 1.6 + Math.cos(tt * 0.00005) * H * 0.025);
+    ctx.rotate(-Math.sin(tt * 0.00004 + 1) * 0.04); var nz = (1.06 + 0.04 * Math.sin(tt * 0.00007 + 1)) * 2; ctx.scale(nz, nz);
+    ctx.drawImage(neb, -neb.width / 2, -neb.height / 2); ctx.restore();
     var px0 = (mx + 0.5) * W, py0 = (my + 0.5) * H;
     if (pointerOn) { var lg = ctx.createRadialGradient(px0, py0, 0, px0, py0, 180); lg.addColorStop(0, 'rgba(160,200,255,0.06)'); lg.addColorStop(1, 'rgba(160,200,255,0)'); ctx.fillStyle = lg; ctx.fillRect(px0 - 180, py0 - 180, 360, 360); }
     var cx = W / 2, cy = H / 2, F = Math.max(W, H) * 0.5, v = (0.012 + warp) * dt, camX = cmx * 0.3, camY = cmy * 0.3;
@@ -1531,7 +1569,7 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
   });
 
   /* ================= Animation loop ================= */
-  var running = true, heroVisible = true;
+  var running = true, heroVisible = true, introEl = document.querySelector('.intro');
   if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { heroVisible = es[0].isIntersecting; }).observe(sys);
   document.addEventListener('visibilitychange', function () { running = !document.hidden; if (running && !reduced) { last = 0; requestAnimationFrame(tick); } });
   function tick(t) {
@@ -1540,9 +1578,9 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
     var k = selected ? 0.12 : slow ? 0.3 : 1, ease = Math.min(1, dt * 3);
     for (var i = 0; i < ang.length; i++) { ang[i] += speed[i] * dt * k; spin[i] += spinRate[i] * dt * 0.35; }
     sunRot += dt * 0.04;
-    tilt += (baseTilt() + my * 0.2 - tilt) * ease;
+    tilt += (baseTilt() + my * 0.3 - tilt) * ease;
     rot += (mx * 0.8 - rot) * ease;
-    if (heroVisible) { place(); renderBodies(); }
+    if (heroVisible) { place(); renderBodies(); if (finePointer) { introEl.style.setProperty('--iy', (cmx * 7).toFixed(2) + 'deg'); introEl.style.setProperty('--ix', (-cmy * 5).toFixed(2) + 'deg'); } }
     warp *= Math.pow(0.06, dt);
     nextShoot -= dt * 1000;
     if (nextShoot <= 0 && !shoot) { shoot = { x: Math.random() * W * 0.7 + W * 0.2, y: Math.random() * H * 0.3, vx: -(5 + Math.random() * 4), vy: 2.2 + Math.random() * 2, life: 60 }; nextShoot = 9000 + Math.random() * 9000; }
@@ -1635,7 +1673,7 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
 
   /* ================= Subtle 3D tilt on project cards ================= */
   if (!reduced && finePointer) {
-    document.querySelectorAll('.card').forEach(function (el) {
+    document.querySelectorAll('.card, .glance div').forEach(function (el) {
       el.addEventListener('pointerenter', function () { el.classList.add('tilting'); });
       el.addEventListener('pointermove', function (e) {
         var r = el.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height, k = Math.max(1.2, Math.min(7, 2600 / r.width));
