@@ -178,12 +178,16 @@ h1 { font: 700 clamp(2.6rem, 5.6vw, 4.2rem)/1.03 var(--display); letter-spacing:
 /* Solar system */
 .system-wrap { min-width: 0; display: grid; gap: 14px; }
 .system { position: relative; width: 100%; aspect-ratio: 10 / 7.5; touch-action: manipulation; }
-.orbit { position: absolute; border-radius: 50%; pointer-events: none; border: 1px solid rgba(170, 185, 230, 0.09); transition: border-color .3s; }
-.orbit.on { border-color: rgba(200, 215, 255, 0.35); }
+.sys-layer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.sys-back { z-index: 1; } .sys-front { z-index: 15; }
 .sun { position: absolute; left: 50%; top: 50%; z-index: 10; width: var(--sun-size, 84px); height: var(--sun-size, 84px); transform: translate(-50%, -50%); border: 0; padding: 0; border-radius: 50%; cursor: pointer;
   background: radial-gradient(circle at 50% 50%, #fff4d6 0%, #ffd27a 40%, #ff9a2e 80%, #d8650c 100%);
   box-shadow: 0 0 30px 6px rgba(255, 190, 90, 0.45), 0 0 90px 24px rgba(255, 140, 40, 0.18), 0 0 200px 70px rgba(255, 120, 30, 0.08); transition: box-shadow .3s; }
-.sun::before { content: ""; position: absolute; inset: -22%; border-radius: 50%; background: radial-gradient(circle, rgba(255, 200, 120, 0.35) 30%, rgba(255, 160, 60, 0.1) 55%, transparent 72%); z-index: -1; animation: corona 6s ease-in-out infinite; }
+.sun::before { content: ""; position: absolute; inset: -22%; border-radius: 50%; background: radial-gradient(circle, rgba(255, 210, 140, 0.4) 30%, rgba(255, 160, 60, 0.12) 55%, transparent 72%); z-index: -1; animation: corona 6s ease-in-out infinite; }
+.sun::after { content: ""; position: absolute; inset: -70%; border-radius: 50%; z-index: -2; pointer-events: none;
+  background: repeating-conic-gradient(from 0deg, rgba(255, 215, 150, 0.1) 0 1.5deg, transparent 1.5deg 7deg, rgba(255, 200, 130, 0.06) 7deg 9deg, transparent 9deg 16deg);
+  -webkit-mask: radial-gradient(circle, transparent 28%, #000 31%, transparent 68%); mask: radial-gradient(circle, transparent 28%, #000 31%, transparent 68%);
+  filter: blur(2.5px); animation: rays 140s linear infinite; }
 @keyframes corona { 50% { transform: scale(1.06); opacity: .75; } }
 .sun canvas, .orb canvas { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); pointer-events: none; }
 .sun canvas { width: 100%; height: 100%; border-radius: 50%; }
@@ -493,7 +497,7 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .sun::before, .pill.live::before, .scroll-cue i::after, h1, .btn::after, .glow::before { animation: none; }
+  .sun::before, .sun::after, .pill.live::before, .scroll-cue i::after, h1, .btn::after, .glow::before { animation: none; }
 }
 
 /* Print: clean black-on-white version for recruiters */
@@ -575,7 +579,6 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
 </svg>
 
 <canvas id="stars" aria-hidden="true"></canvas>
-<canvas id="dust" aria-hidden="true"></canvas>
 <div class="cursor-ring" aria-hidden="true"><i></i></div>
 <div class="aura" id="aura" aria-hidden="true"></div>
 <div class="vignette" aria-hidden="true"></div>
@@ -630,9 +633,9 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
         <div class="system" id="system" role="group" aria-label="Interactive solar system. Each planet opens a part of my profile.">
           <button class="sun" type="button" data-key="about" aria-label="About me"><canvas></canvas><span class="pl-label">About me</span></button>
           <button class="planet" type="button" data-key="skills" data-body="mercury" style="--s: 24px; --gc: #b3aca4" aria-label="Skills"><span class="orb"></span><span class="pl-label">Skills</span></button>
-          <button class="planet" type="button" data-key="experience" data-body="earth" style="--s: 40px; --gc: #4f8fd8" aria-label="Experience"><span class="orb"></span><span class="pl-label">Experience</span></button>
+          <button class="planet" type="button" data-key="experience" data-body="earth" style="--s: 40px; --k: 2.7; --gc: #4f8fd8" aria-label="Experience"><span class="orb"></span><span class="pl-label">Experience</span></button>
           <button class="planet" type="button" data-key="projects" data-body="mars" style="--s: 32px; --gc: #d0744a" aria-label="Projects"><span class="orb"></span><span class="pl-label">Projects</span></button>
-          <button class="planet" type="button" data-key="leadership" data-body="jupiter" style="--s: 62px; --gc: #d9bf98" aria-label="Leadership and achievements"><span class="orb"></span><span class="pl-label">Leadership</span></button>
+          <button class="planet" type="button" data-key="leadership" data-body="jupiter" style="--s: 62px; --k: 2.7; --gc: #d9bf98" aria-label="Leadership and achievements"><span class="orb"></span><span class="pl-label">Leadership</span></button>
           <button class="planet" type="button" data-key="research" data-body="saturn" style="--s: 46px; --k: 2.5; --gc: #e2cc98" aria-label="Research"><span class="orb"></span><span class="pl-label">Research</span></button>
           <button class="planet" type="button" data-key="education" data-body="neptune" style="--s: 42px; --gc: #5a86e6" aria-label="Education"><span class="orb"></span><span class="pl-label">Education</span></button>
         </div>
@@ -1299,66 +1302,6 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
     nctx.putImageData(im, 0, 0);
     g.save(); g.globalCompositeOperation = 'lighter'; g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high'; g.filter = 'blur(' + Math.round(sw / nw * 1.4) + 'px)'; g.drawImage(nc, -8, -8, sw + 16, sh + 16); g.filter = 'none'; g.drawImage(nc, 0, 0, sw, sh); g.restore();
   }
-  /* A small shuttle, drawn pointing along +x; used for background traffic and the cursor */
-  function drawShip(c, x, y, ang, s, thrust, t, alpha) {
-    c.save(); c.translate(x, y); c.rotate(ang); c.globalAlpha = alpha == null ? 1 : alpha;
-    if (thrust > 0.02) {
-      var fl = s * (0.5 + thrust * 1.3) * (0.85 + 0.15 * Math.sin(t * 0.06)), fg = c.createLinearGradient(-s * 0.48, 0, -s * 0.48 - fl, 0);
-      fg.addColorStop(0, 'rgba(225,245,255,0.95)'); fg.addColorStop(0.25, 'rgba(110,180,255,0.85)'); fg.addColorStop(1, 'rgba(60,90,255,0)');
-      c.fillStyle = fg; c.beginPath(); c.moveTo(-s * 0.46, -s * 0.13); c.quadraticCurveTo(-s * 0.5 - fl, 0, -s * 0.46, s * 0.13); c.closePath(); c.fill();
-    }
-    c.fillStyle = '#5d6c8e';
-    c.beginPath(); c.moveTo(s * 0.02, -s * 0.12); c.lineTo(-s * 0.42, -s * 0.44); c.lineTo(-s * 0.34, -s * 0.11); c.closePath(); c.fill();
-    c.beginPath(); c.moveTo(s * 0.02, s * 0.12); c.lineTo(-s * 0.42, s * 0.44); c.lineTo(-s * 0.34, s * 0.11); c.closePath(); c.fill();
-    var bgr = c.createLinearGradient(0, -s * 0.18, 0, s * 0.18); bgr.addColorStop(0, '#f7f9ff'); bgr.addColorStop(0.45, '#c4cee4'); bgr.addColorStop(1, '#55607c');
-    c.fillStyle = bgr; c.beginPath(); c.moveTo(s * 0.62, 0); c.quadraticCurveTo(s * 0.28, -s * 0.19, -s * 0.48, -s * 0.15); c.lineTo(-s * 0.48, s * 0.15); c.quadraticCurveTo(s * 0.28, s * 0.19, s * 0.62, 0); c.closePath(); c.fill();
-    var cp = c.createRadialGradient(s * 0.24, -s * 0.03, 0, s * 0.2, 0, s * 0.14); cp.addColorStop(0, '#e8fbff'); cp.addColorStop(0.5, '#4fc3ff'); cp.addColorStop(1, '#0b3a7a');
-    c.fillStyle = cp; c.beginPath(); c.ellipse(s * 0.2, 0, s * 0.14, s * 0.07, 0, 0, 6.283); c.fill();
-    if (Math.sin(t * 0.008) > 0.6) { c.fillStyle = '#ff6b6b'; c.beginPath(); c.arc(-s * 0.4, -s * 0.42, Math.max(1, s * 0.04), 0, 6.283); c.fill(); c.fillStyle = '#6bff9b'; c.beginPath(); c.arc(-s * 0.4, s * 0.42, Math.max(1, s * 0.04), 0, 6.283); c.fill(); }
-    c.restore();
-  }
-  /* Flying saucer: metallic disc, glass dome, chasing rim lights, occasional tractor beam */
-  function drawUFO(c, x, y, s, tiltA, t, alpha, beam) {
-    c.save(); c.translate(x, y); c.rotate(tiltA); c.globalAlpha = alpha;
-    var gl = c.createRadialGradient(0, s * 0.18, 0, 0, s * 0.18, s * 1.25); gl.addColorStop(0, 'rgba(120,220,255,0.32)'); gl.addColorStop(1, 'rgba(120,220,255,0)');
-    c.fillStyle = gl; c.beginPath(); c.ellipse(0, s * 0.18, s * 1.25, s * 0.55, 0, 0, 6.283); c.fill();
-    if (beam > 0.01) {
-      var bm = c.createLinearGradient(0, s * 0.2, 0, s * 2.6); bm.addColorStop(0, 'rgba(160,235,255,' + (0.32 * beam).toFixed(3) + ')'); bm.addColorStop(1, 'rgba(160,235,255,0)');
-      c.fillStyle = bm; c.beginPath(); c.moveTo(-s * 0.24, s * 0.18); c.lineTo(s * 0.24, s * 0.18); c.lineTo(s * 0.85, s * 2.6); c.lineTo(-s * 0.85, s * 2.6); c.closePath(); c.fill();
-    }
-    var dg = c.createRadialGradient(-s * 0.12, -s * 0.34, 0, 0, -s * 0.14, s * 0.44); dg.addColorStop(0, 'rgba(235,252,255,0.97)'); dg.addColorStop(0.45, 'rgba(110,205,255,0.8)'); dg.addColorStop(1, 'rgba(25,70,150,0.7)');
-    c.fillStyle = dg; c.beginPath(); c.ellipse(0, -s * 0.08, s * 0.38, s * 0.34, 0, Math.PI, 2 * Math.PI); c.fill();
-    var sg = c.createLinearGradient(0, -s * 0.16, 0, s * 0.22); sg.addColorStop(0, '#f2f5fc'); sg.addColorStop(0.45, '#9ea9c3'); sg.addColorStop(1, '#3a4360');
-    c.fillStyle = sg; c.beginPath(); c.ellipse(0, 0, s, s * 0.22, 0, 0, 6.283); c.fill();
-    c.strokeStyle = 'rgba(255,255,255,0.55)'; c.lineWidth = Math.max(0.6, s * 0.03); c.beginPath(); c.ellipse(0, -s * 0.03, s * 0.9, s * 0.15, 0, Math.PI * 1.06, Math.PI * 1.94); c.stroke();
-    c.fillStyle = '#262d45'; c.beginPath(); c.ellipse(0, s * 0.13, s * 0.52, s * 0.11, 0, 0, Math.PI); c.fill();
-    for (var k = 0; k < 7; k++) {
-      var ax = (-0.72 + k * 0.24) * s, lit = (Math.floor(t / 160) + k) % 3 === 0;
-      c.fillStyle = lit ? '#a8f6ff' : 'rgba(120,200,255,0.35)'; c.beginPath(); c.arc(ax, s * 0.06, Math.max(0.8, s * 0.048), 0, 6.283); c.fill();
-      if (lit) { c.globalAlpha = alpha * 0.3; c.beginPath(); c.arc(ax, s * 0.06, s * 0.14, 0, 6.283); c.fill(); c.globalAlpha = alpha; }
-    }
-    c.restore();
-  }
-  var ufos = [], nextUfo = 2500;
-  function launchUfo() {
-    var dir = Math.random() < 0.5 ? 1 : -1, far = Math.random() < 0.45;
-    ufos.push({ x: dir > 0 ? -80 : W + 80, y0: rnd(0.12, 0.78) * H, dir: dir, sp: far ? rnd(35, 60) : rnd(60, 110), s: far ? rnd(9, 13) : rnd(20, 30), al: far ? 0.6 : 0.95,
-      ph: rnd(0, 6.28), amp: rnd(10, 30), beamAt: rnd(0.3, 0.7), beam: 0, y: 0, t0: 0 });
-  }
-  function updateShips(t, dt) {
-    nextUfo -= dt * 1000;
-    if (nextUfo <= 0 && ufos.length < 3) { launchUfo(); nextUfo = rnd(6000, 13000); }
-    for (var i = ufos.length - 1; i >= 0; i--) {
-      var u = ufos[i]; u.ph += dt * 1.6;
-      var prog = u.dir > 0 ? u.x / W : 1 - u.x / W, hovering = Math.abs(prog - u.beamAt) < 0.06;
-      u.beam += ((hovering ? 1 : 0) - u.beam) * Math.min(1, dt * 3);
-      u.x += u.dir * u.sp * dt * (hovering ? 0.25 : 1);
-      u.y = u.y0 + Math.sin(u.ph) * u.amp;
-      drawUFO(ctx, u.x, u.y, u.s, Math.cos(u.ph) * 0.12 + u.dir * 0.06, t, u.al, u.beam);
-      if (u.x < -140 || u.x > W + 140) ufos.splice(i, 1);
-    }
-    ctx.globalAlpha = 1;
-  }
   function seed() {
     W = innerWidth; H = innerHeight;
     cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
@@ -1413,7 +1356,6 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
       if (shoot.life <= 0) shoot = null;
     }
     ctx.globalAlpha = 1;
-    if (!reduced && dt) updateShips(t, dt);
   }
   var pointerOn = false, finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
   addEventListener('pointermove', function (e) { mx = e.clientX / innerWidth - 0.5; my = e.clientY / innerHeight - 0.5; pointerOn = finePointer && !reduced; }, { passive: true });
@@ -1449,12 +1391,17 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
      true 3D direction, so planets in front of the sun show a crescent and those behind it are fully lit. */
   var sys = document.getElementById('system'), sunBtn = sys.querySelector('.sun');
   var planets = [].slice.call(sys.querySelectorAll('.planet'));
-  var speed = [0.46, 0.34, 0.28, 0.17, 0.13, 0.1];
+  var speed = [];  /* filled from Kepler's third law in layout() */
+  var ROLL = { mercury: 0.03, earth: 0.41, mars: 0.44, jupiter: 0.05, saturn: -0.47, neptune: 0.49 };
   var ang = planets.map(function (_, i) { return 0.5 + i * 2.1; });
   var spin = planets.map(function () { return Math.random() * 6.28; });
-  var spinRate = [0.12, 0.5, 0.48, 1.2, 1.05, 0.8];
+  var spinRate = [0.05, 0.5, 0.48, 1.2, 1.1, 0.75];
+  var moonPh = 0.7, galPh = [0.3, 2.1, 4, 5.3], galRate = [2.2, 1.1, 0.55, 0.24], belt = [], beltA0 = 0, beltA1 = 0;
   var A = [], orbits = [], cx = 0, cy = 0, slow = false, selected = null, tilt = 0.42, rot = 0, sunRot = 0;
-  planets.forEach(function (p) { var o = document.createElement('div'); o.className = 'orbit'; sys.insertBefore(o, sys.firstChild); orbits.push(o); });
+  var backCv = document.createElement('canvas'), frontCv = document.createElement('canvas');
+  backCv.className = 'sys-layer sys-back'; frontCv.className = 'sys-layer sys-front';
+  sys.insertBefore(backCv, sys.firstChild); sys.appendChild(frontCv);
+  var bctx = backCv.getContext('2d'), fctx = frontCv.getContext('2d'), moonSp = null;
   /* per-planet render state */
   var R = planets.map(function (p) {
     var orb = p.querySelector('.orb'), c = document.createElement('canvas'); orb.appendChild(c);
@@ -1466,8 +1413,9 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
     R.forEach(function (r, i) {
       var s = parseFloat(planets[i].style.getPropertyValue('--s')), k = parseFloat(planets[i].style.getPropertyValue('--k')) || 1;
       var D = Math.max(16, Math.round(s * DPR * 1.15));
-      r.sp = new Sphere(D, r.body === 'saturn' ? -0.32 : r.body === 'uranus' ? 1.4 : 0.05);
+      r.sp = new Sphere(D, ROLL[r.body] || 0);
       r.cv.width = r.cv.height = Math.round(D * k); r.k = k;
+      if (r.body === 'earth') moonSp = new Sphere(Math.max(6, Math.round(D * 0.27)), 0);
     });
     var ss = sunBtn.clientWidth; var SD = Math.max(32, Math.round(ss * DPR));
     sunSp = new Sphere(SD, 0.12); sunCv.width = sunCv.height = SD;
@@ -1480,7 +1428,24 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
       r.ctx.clearRect(0, 0, r.cv.width, r.cv.height);
       if (r.body === 'saturn') {
         var lit = 0.45 + 0.55 * Math.max(0, 1 - Math.abs(r.L[2]) * 0.6);
-        ring(r.ctx, C, D / 2, -0.32, false, lit); r.ctx.drawImage(img, C - D / 2, C - D / 2); ring(r.ctx, C, D / 2, -0.32, true, lit);
+        ring(r.ctx, C, D / 2, ROLL.saturn, false, lit); r.ctx.drawImage(img, C - D / 2, C - D / 2); ring(r.ctx, C, D / 2, ROLL.saturn, true, lit);
+      } else if (r.body === 'earth' && moonSp && TEX.mercury) {
+        /* the Moon, lit by the same sun, passes in front of and behind Earth */
+        var mimg = moonSp.draw(TEX.mercury, moonPh * 0.3, r.L, { amb: 0.04 }), md = moonSp.D, mx2 = C + Math.cos(moonPh) * D * 1.05 - md / 2, my2 = C + Math.sin(moonPh) * D * 0.2 - md / 2, mFront = Math.sin(moonPh) > 0;
+        if (!mFront) r.ctx.drawImage(mimg, mx2, my2);
+        r.ctx.drawImage(img, C - D / 2, C - D / 2);
+        if (mFront) r.ctx.drawImage(mimg, mx2, my2);
+      } else if (r.body === 'jupiter') {
+        /* Io, Europa, Ganymede and Callisto */
+        var rr = [1.32, 1.6, 2.0, 2.45], mr = Math.max(1.1, D * 0.022), lum = 0.35 + 0.65 * Math.max(0, r.L[0] * 0 + 1 - Math.abs(r.L[2]) * 0.5);
+        function gal(front) {
+          for (var q = 0; q < 4; q++) {
+            var s2 = Math.sin(galPh[q]); if ((s2 > 0) !== front) continue;
+            r.ctx.fillStyle = 'rgba(' + Math.round(232 * lum) + ',' + Math.round(222 * lum) + ',' + Math.round(200 * lum) + ',0.95)';
+            r.ctx.beginPath(); r.ctx.arc(C + Math.cos(galPh[q]) * D / 2 * rr[q], C + s2 * D / 2 * rr[q] * 0.1, mr, 0, 6.283); r.ctx.fill();
+          }
+        }
+        gal(false); r.ctx.drawImage(img, C - D / 2, C - D / 2); gal(true);
       } else r.ctx.drawImage(img, C - D / 2, C - D / 2);
       r.orb.classList.add('ready');
     });
@@ -1490,21 +1455,45 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
     cx = w / 2; cy = h / 2;
     var sunSize = Math.max(64, Math.min(128, w * 0.19)); sys.style.setProperty('--sun-size', sunSize + 'px');
     var outer = Math.min(w / 2 - 50, (h / 2 - 44) / (baseTilt() + 0.12)), inner = sunSize / 2 + 34;
-    planets.forEach(function (p, i) { A[i] = inner + (outer - inner) * Math.pow(i / (planets.length - 1), 0.9); });
+    planets.forEach(function (p, i) { A[i] = inner + (outer - inner) * Math.pow(i / (planets.length - 1), 0.9); speed[i] = 0.62 * Math.pow(A[0] / A[i], 1.5); });
+    backCv.width = frontCv.width = Math.round(w * DPR); backCv.height = frontCv.height = Math.round(h * DPR);
+    bctx.setTransform(DPR, 0, 0, DPR, 0, 0); fctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    /* main asteroid belt between Mars (index 2) and Jupiter (index 3) */
+    beltA0 = A[2] + (A[3] - A[2]) * 0.3; beltA1 = A[2] + (A[3] - A[2]) * 0.68;
+    if (!belt.length) for (var q = 0; q < 380; q++) belt.push({ f: Math.pow(Math.random(), 0.8), th: Math.random() * 6.283, s: 0.5 + Math.random() * 1.3, b: 0.35 + Math.random() * 0.5, j: (Math.random() - 0.5) * 0.08 });
+    belt.forEach(function (o) { o.r = beltA0 + (beltA1 - beltA0) * o.f; o.w = 0.62 * Math.pow(A[0] / o.r, 1.5); });
     sizeRenderers(); place(); renderBodies();
   }
   function ellipse(el, a, b) { el.style.left = (cx - a) + 'px'; el.style.top = (cy - b) + 'px'; el.style.width = 2 * a + 'px'; el.style.height = 2 * b + 'px'; }
   function place() {
     var ce = Math.sqrt(1 - tilt * tilt);
-    orbits.forEach(function (o, i) { ellipse(o, A[i], A[i] * tilt); });
+    drawLayers();
     planets.forEach(function (p, i) {
       var a = ang[i] + rot, c = Math.cos(a), s = Math.sin(a), d = (s + 1) / 2;
       var x = cx + A[i] * c, y = cy + A[i] * tilt * s;
       p.style.transform = 'translate(' + (x - 42).toFixed(1) + 'px,' + (y - 42).toFixed(1) + 'px) scale(' + (0.78 + 0.34 * d).toFixed(3) + ')';
-      p.style.zIndex = s > 0 ? 20 : 5;
+      p.style.zIndex = s > 0 ? 20 + Math.round(s * 9) : 5 + Math.round((s + 1) * 4);
       var L = [-c, -s * tilt, -s * ce], m = Math.hypot(L[0], L[1], L[2]) || 1;
       R[i].L = [L[0] / m, L[1] / m, L[2] / m];
     });
+  }
+  /* Orbits and the asteroid belt: the far half is drawn behind the sun, the near half in front of it */
+  function drawLayers() {
+    var w = sys.clientWidth, h = sys.clientHeight;
+    bctx.clearRect(0, 0, w, h); fctx.clearRect(0, 0, w, h);
+    for (var i = 0; i < A.length; i++) {
+      var on = planets[i].getAttribute('data-key') === selected, b = A[i] * tilt;
+      bctx.lineWidth = fctx.lineWidth = on ? 1.4 : 1;
+      bctx.strokeStyle = 'rgba(160,190,255,' + (on ? 0.32 : 0.07) + ')';
+      bctx.beginPath(); bctx.ellipse(cx, cy, A[i], b, 0, Math.PI, 2 * Math.PI); bctx.stroke();
+      var fg = fctx.createLinearGradient(0, cy, 0, cy + b); fg.addColorStop(0, 'rgba(160,190,255,' + (on ? 0.3 : 0.07) + ')'); fg.addColorStop(1, 'rgba(180,205,255,' + (on ? 0.6 : 0.2) + ')');
+      fctx.strokeStyle = fg; fctx.beginPath(); fctx.ellipse(cx, cy, A[i], b, 0, 0, Math.PI); fctx.stroke();
+    }
+    for (var k = 0; k < belt.length; k++) {
+      var o = belt[k], th = o.th + rot, s = Math.sin(th), d = (s + 1) / 2, c2 = s < 0 ? bctx : fctx;
+      c2.fillStyle = 'rgba(' + Math.round(200 * o.b + 30) + ',' + Math.round(185 * o.b + 25) + ',' + Math.round(160 * o.b + 20) + ',' + (0.35 + 0.5 * d).toFixed(2) + ')';
+      var sz = o.s * (0.7 + 0.5 * d); c2.fillRect(cx + o.r * Math.cos(th) - sz / 2, cy + (o.r * tilt + o.j * o.r * 0.2) * s - sz / 2, sz, sz);
+    }
   }
   sys.addEventListener('pointerenter', function () { slow = true; });
   sys.addEventListener('pointerleave', function () { slow = false; });
@@ -1544,7 +1533,7 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
   var lastTrigger = null;
   function mark(key) {
     triggers.forEach(function (t) { t.classList.toggle('on', t.getAttribute('data-key') === key); });
-    orbits.forEach(function (o, i) { o.classList.toggle('on', planets[i].getAttribute('data-key') === key); });
+    drawLayers();
   }
   function openPanel(key, from) {
     var d = DATA[key]; if (!d) return;
@@ -1577,6 +1566,8 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
     var dt = last ? Math.min(0.05, (t - last) / 1000) : 0; last = t;
     var k = selected ? 0.12 : slow ? 0.3 : 1, ease = Math.min(1, dt * 3);
     for (var i = 0; i < ang.length; i++) { ang[i] += speed[i] * dt * k; spin[i] += spinRate[i] * dt * 0.35; }
+    for (var q = 0; q < belt.length; q++) belt[q].th += belt[q].w * dt * k;
+    moonPh += dt * 0.9 * k; for (var g2 = 0; g2 < 4; g2++) galPh[g2] += galRate[g2] * dt * k;
     sunRot += dt * 0.04;
     tilt += (baseTilt() + my * 0.3 - tilt) * ease;
     rot += (mx * 0.8 - rot) * ease;
@@ -1616,48 +1607,25 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
     }
   }
 
-  /* ================= Spaceship cursor with exhaust and lock-on reticle ================= */
+  /* ================= Lock-on reticle: frames the control under the pointer ================= */
   (function () {
-    var dust = document.getElementById('dust'), ring = document.querySelector('.cursor-ring');
-    if (!finePointer || reduced) { dust.remove(); ring.remove(); return; }
-    var dctx = dust.getContext('2d'), parts = [], tx = -200, ty = -200, px = null, py = null, ang = -2.35, thrust = 0, on = false, target = null, down = false;
-    var rb = { x: 0, y: 0, w: 40, h: 40, r: 20 };
-    function fit() { dust.width = innerWidth * DPR; dust.height = innerHeight * DPR; dctx.setTransform(DPR, 0, 0, DPR, 0, 0); }
-    fit(); addEventListener('resize', fit);
-    document.documentElement.classList.add('has-cursor', 'cursor-out');
-    addEventListener('pointermove', function (e) {
-      tx = e.clientX; ty = e.clientY; document.documentElement.classList.remove('cursor-out');
-      if (!on) { on = true; px = tx; py = ty; rb.x = tx; rb.y = ty; requestAnimationFrame(loop); }
-    }, { passive: true });
-    document.addEventListener('pointerleave', function () { document.documentElement.classList.add('cursor-out'); });
-    addEventListener('pointerdown', function () { down = true; ring.classList.add('down'); });
-    addEventListener('pointerup', function () { down = false; ring.classList.remove('down'); });
+    var ring = document.querySelector('.cursor-ring');
+    if (!finePointer || reduced) { ring.remove(); return; }
+    var target = null, rb = { x: 0, y: 0, w: 40, h: 40, r: 20 }, live = false;
     document.addEventListener('pointerover', function (e) {
-      var t = e.target.closest && e.target.closest('a, button, [data-key], .chips li, input, select, textarea');
+      var t = e.target.closest && e.target.closest('a, button, [data-key], .chips li');
+      if (t && t !== target) { var r = t.getBoundingClientRect(); rb = { x: r.left + r.width / 2, y: r.top + r.height / 2, w: r.width + 34, h: r.height + 34, r: 22 }; }
       target = t || null; ring.classList.toggle('lock', !!t);
+      if (t && !live) { live = true; requestAnimationFrame(loop); }
     });
-    function loop(now) {
-      var dx = tx - px, dy = ty - py, sp = Math.hypot(dx, dy);
-      px = tx; py = ty;
-      if (sp > 1.5) { var want = Math.atan2(dy, dx), da = Math.atan2(Math.sin(want - ang), Math.cos(want - ang)); ang += da * 0.25; }
-      thrust += (Math.min(1, sp / 18) - thrust) * 0.2;
-      var S = 26, nx = Math.cos(ang), ny = Math.sin(ang), cxs = tx - nx * S * 0.6, cys = ty - ny * S * 0.6;
-      if (thrust > 0.08 && parts.length < 160) for (var j = 0; j < 2; j++) parts.push({ x: cxs - nx * S * 0.5 + (Math.random() - 0.5) * 4, y: cys - ny * S * 0.5 + (Math.random() - 0.5) * 4, vx: -nx * (0.8 + Math.random()) + (Math.random() - 0.5) * 0.6, vy: -ny * (0.8 + Math.random()) + (Math.random() - 0.5) * 0.6, life: 1, s: 0.8 + Math.random() * 1.8 * thrust, c: Math.random() < 0.75 ? '120,190,255' : '235,245,255' });
-      dctx.clearRect(0, 0, innerWidth, innerHeight);
-      for (var i = parts.length - 1; i >= 0; i--) {
-        var p = parts[i]; p.x += p.vx; p.y += p.vy; p.vx *= 0.96; p.vy *= 0.96; p.life -= 0.03;
-        if (p.life <= 0) { parts.splice(i, 1); continue; }
-        dctx.globalAlpha = p.life * 0.8; dctx.fillStyle = 'rgb(' + p.c + ')';
-        dctx.beginPath(); dctx.arc(p.x, p.y, p.s * p.life + 0.3, 0, 6.283); dctx.fill();
-      }
-      dctx.globalAlpha = 1;
-      drawShip(dctx, cxs, cys, ang, S * (down ? 0.85 : 1), thrust, now || 0, 1);
-      /* reticle locks onto the hovered control */
-      if (target && document.contains(target)) {
-        var r = target.getBoundingClientRect(), pad = 6, rad = parseFloat(getComputedStyle(target).borderTopLeftRadius) || 8;
-        var gx = r.left + r.width / 2, gy = r.top + r.height / 2, gw = r.width + pad * 2, gh = r.height + pad * 2;
-        rb.x += (gx - rb.x) * 0.25; rb.y += (gy - rb.y) * 0.25; rb.w += (gw - rb.w) * 0.25; rb.h += (gh - rb.h) * 0.25; rb.r += (Math.min(rad + pad, gh / 2) - rb.r) * 0.25;
-      } else { rb.x += (tx - rb.x) * 0.3; rb.y += (ty - rb.y) * 0.3; rb.w += (30 - rb.w) * 0.2; rb.h += (30 - rb.h) * 0.2; rb.r += (15 - rb.r) * 0.2; }
+    addEventListener('pointerdown', function () { ring.classList.add('down'); });
+    addEventListener('pointerup', function () { ring.classList.remove('down'); });
+    function loop() {
+      if (!target || !document.contains(target)) { live = false; ring.classList.remove('lock'); return; }
+      var r = target.getBoundingClientRect(), pad = 6, rad = parseFloat(getComputedStyle(target).borderTopLeftRadius) || 8;
+      var gw = r.width + pad * 2, gh = r.height + pad * 2;
+      rb.x += (r.left + r.width / 2 - rb.x) * 0.3; rb.y += (r.top + r.height / 2 - rb.y) * 0.3;
+      rb.w += (gw - rb.w) * 0.22; rb.h += (gh - rb.h) * 0.22; rb.r += (Math.min(rad + pad, gh / 2) - rb.r) * 0.22;
       ring.style.width = rb.w.toFixed(1) + 'px'; ring.style.height = rb.h.toFixed(1) + 'px'; ring.style.borderRadius = rb.r.toFixed(1) + 'px';
       ring.style.transform = 'translate3d(' + (rb.x - rb.w / 2).toFixed(1) + 'px,' + (rb.y - rb.h / 2).toFixed(1) + 'px,0)';
       requestAnimationFrame(loop);
