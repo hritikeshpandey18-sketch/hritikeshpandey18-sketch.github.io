@@ -142,7 +142,7 @@ header.nav { position: sticky; top: calc(10px + env(safe-area-inset-top, 0px)); 
 .btn-tint:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -12px var(--c); }
 
 /* ---------- Hero ---------- */
-.hero { padding-block: clamp(40px, 6vw, 72px) clamp(28px, 4vw, 48px); }
+.hero { padding-block: clamp(28px, 4vw, 52px) clamp(12px, 2vw, 24px); }
 .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr); gap: clamp(28px, 4vw, 56px); align-items: center; }
 .intro { position: relative; isolation: isolate; transform: perspective(1400px) rotateY(var(--iy, 0deg)) rotateX(var(--ix, 0deg)); transform-style: preserve-3d; }
 .intro::before { content: ""; position: absolute; inset: -60px -80px; z-index: -1; pointer-events: none; background: radial-gradient(closest-side, rgba(2, 4, 11, 0.75), rgba(2, 4, 11, 0.4) 60%, transparent); }
@@ -235,7 +235,7 @@ h1 { font: 700 clamp(2.6rem, 5.6vw, 4.2rem)/1.03 var(--display); letter-spacing:
 
 /* ---------- Sections (shared) ---------- */
 main { counter-reset: sec; }
-.sec { padding-block: clamp(72px, 10vw, 120px) 0; scroll-margin-top: 72px; counter-increment: sec; }
+.sec { padding-block: clamp(52px, 6.5vw, 84px) 0; scroll-margin-top: 84px; counter-increment: sec; }
 .sec-head { display: grid; gap: 10px; margin-bottom: clamp(26px, 3.5vw, 40px); max-width: 720px; }
 .eyebrow { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c, var(--accent)); text-shadow: 0 0 16px color-mix(in srgb, var(--c, var(--accent)) 45%, transparent); }
 .sec .eyebrow::before { content: counter(sec, decimal-leading-zero); font: 500 0.78rem var(--mono); letter-spacing: .04em; color: var(--muted); padding-right: 10px; border-right: 1px solid var(--line-hi); }
@@ -471,6 +471,145 @@ footer { padding-block: clamp(64px, 8vw, 96px) 36px; color: var(--muted); font-s
 .to-top:hover { box-shadow: 0 0 24px -4px rgba(143, 208, 255, 0.7); }
 .to-top:hover { transform: translateY(-3px); border-color: var(--accent); }
 
+/* ===================== Open, flowing layouts (no boxed tables) ===================== */
+.sec > .wrap, #after-hero { position: relative; }
+.sec > .wrap::before { content: ""; position: absolute; inset: -40px -80px; z-index: -1; pointer-events: none; background: radial-gradient(70% 60% at 30% 35%, rgba(2, 6, 23, 0.55), transparent 75%); }
+.lead-in { font-size: 1.08rem; max-width: 68ch; }
+
+/* Big centred numbers */
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); text-align: center; padding-block: clamp(8px, 2vw, 18px); }
+.stats div { position: relative; display: grid; gap: 4px; justify-items: center; padding: 6px 14px; transition: transform .4s cubic-bezier(.2, .7, .2, 1); }
+.stats div:hover { transform: translateY(-4px) scale(1.04); }
+.stats div + div::before { content: ""; position: absolute; left: 0; top: 12%; bottom: 12%; width: 1px; background: linear-gradient(transparent, rgba(143, 208, 255, 0.4), transparent); }
+.stats b { font: 600 clamp(2.5rem, 5.2vw, 3.6rem)/1 var(--display); letter-spacing: -0.045em; background: linear-gradient(180deg, #fff 25%, #9fd0ff); -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 2px 0 rgba(110, 150, 245, 0.45)) drop-shadow(0 12px 26px rgba(60, 120, 255, 0.45)); }
+.stats small { font-size: 0.9rem; font-weight: 700; color: var(--muted); }
+
+/* About */
+.about2 { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+.pull { margin-top: 22px; padding-left: 18px; border-left: 2px solid var(--sun); font: 600 1.12rem/1.5 var(--display); letter-spacing: -0.015em; color: var(--fg); }
+.side-h { font: 500 0.74rem var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--c, var(--accent)); margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+.side-h::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, color-mix(in srgb, var(--c, var(--accent)) 45%, transparent), transparent); }
+
+/* Orbit list: items strung on a glowing line */
+.olist { position: relative; display: grid; gap: 18px; padding-left: 28px; }
+.olist::before { content: ""; position: absolute; left: 6px; top: 10px; bottom: 10px; width: 1px; background: linear-gradient(var(--c, var(--accent)), rgba(143, 208, 255, 0.25) 70%, transparent); }
+.olist > li { position: relative; display: grid; gap: 3px; }
+.olist > li::before { content: ""; position: absolute; left: -27px; top: .5em; width: 11px; height: 11px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, var(--c, var(--accent)) 60%, #1b3a8a); box-shadow: 0 0 12px var(--c, var(--accent)); transition: box-shadow .3s, transform .3s; }
+.olist > li:hover::before { transform: scale(1.3); box-shadow: 0 0 22px 4px var(--c, var(--accent)); }
+.olist b { color: var(--fg); font-size: 1.02rem; }
+.olist span { font-size: 0.95rem; }
+
+/* Interests: five open columns */
+.interests2 { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(18px, 2.5vw, 30px); margin-top: clamp(34px, 5vw, 52px); }
+.interests2 > li { display: grid; gap: 10px; align-content: start; transition: transform .4s cubic-bezier(.2, .7, .2, 1); }
+.interests2 > li:hover { transform: translateY(-5px); }
+.interests2 .globe { --s: 46px; box-shadow: 0 0 28px -6px rgba(143, 208, 255, 0.8); transition: transform .8s cubic-bezier(.2, .7, .2, 1); }
+.interests2 li:hover .globe { transform: rotate(40deg) scale(1.12); }
+.interests2 b { color: var(--fg); font-size: 1rem; line-height: 1.35; }
+.interests2 span { font-size: 0.92rem; }
+
+/* Experience timeline (open) */
+.tl { position: relative; display: grid; gap: clamp(28px, 3.5vw, 40px); --prog: 0; }
+.tl::before { content: ""; position: absolute; left: 152px; top: 8px; bottom: 8px; width: 2px; border-radius: 2px; background: linear-gradient(var(--p-exp), var(--p-exp)) top / 2px calc(var(--prog) * 100%) no-repeat, rgba(90, 165, 255, 0.16); }
+.tl > li { display: grid; grid-template-columns: 128px minmax(0, 1fr); gap: 0 50px; position: relative; scroll-margin-top: 96px; }
+.tl > li::before { content: ""; position: absolute; left: 146px; top: .45em; width: 14px; height: 14px; border-radius: 50%; background: var(--space); border: 2px solid var(--p-exp); transition: box-shadow .3s; }
+.tl > li.now::before, .tl > li:hover::before { background: var(--p-exp); box-shadow: 0 0 0 5px rgba(90, 165, 255, 0.18), 0 0 18px var(--p-exp); }
+.tl .when { text-align: right; font: 500 0.8rem/1.6 var(--mono); color: var(--muted); padding-top: 2px; }
+.tl .when b { display: block; font: 800 0.7rem var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--p-exp); }
+.tl .what { display: grid; gap: 10px; }
+.tl .what h3 { font: 600 1.22rem/1.3 var(--display); letter-spacing: -0.02em; }
+.tl .what .meta { margin-top: -6px; }
+
+/* Research features: alternating, with a 3D planet */
+.feats { display: grid; gap: clamp(44px, 6vw, 76px); margin-top: clamp(30px, 4vw, 44px); }
+.feat { display: grid; grid-template-columns: minmax(0, 280px) minmax(0, 1fr); gap: clamp(24px, 4.5vw, 64px); align-items: center; }
+.feat:nth-child(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 280px); }
+.feat:nth-child(even) .feat-vis { order: 2; }
+.feat-vis { position: relative; width: 100%; max-width: 280px; aspect-ratio: 1; display: grid; place-items: center; justify-self: center; perspective: 700px; }
+.feat-vis .globe { --s: clamp(118px, 15vw, 160px); box-shadow: 0 0 80px -16px var(--c), 0 0 0 1px rgba(255, 255, 255, 0.04); animation: bob 7s ease-in-out infinite; }
+.feat-vis::before { content: ""; position: absolute; inset: 4%; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--c) 45%, transparent); transform: rotateX(74deg); }
+.feat-vis::after { content: ""; position: absolute; inset: -2%; border-radius: 50%; border: 1px dashed color-mix(in srgb, var(--c) 30%, transparent); transform: rotateX(74deg) rotateZ(0); animation: ringspin 40s linear infinite; }
+.feat-vis i { position: absolute; inset: 4%; border-radius: 50%; animation: sat 9s linear infinite; }
+.feat-vis i::after { content: ""; position: absolute; left: 50%; top: -5px; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: #fff; box-shadow: 0 0 12px 2px var(--c); }
+@keyframes bob { 50% { transform: translateY(-8px); } }
+@keyframes ringspin { to { transform: rotateX(74deg) rotateZ(360deg); } }
+@keyframes sat { from { transform: rotateX(74deg) rotateZ(0deg); } to { transform: rotateX(74deg) rotateZ(360deg); } }
+.feat-text { display: grid; gap: 14px; }
+.feat-text h3 { font: 600 clamp(1.35rem, 2.6vw, 1.8rem)/1.25 var(--display); letter-spacing: -0.025em; }
+.feat-tags { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.feat-num { font: 500 0.8rem var(--mono); letter-spacing: .12em; color: var(--c); }
+.feat-links { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; }
+.also { margin-top: clamp(30px, 4vw, 44px); font-size: 0.98rem; color: var(--muted); }
+.also b { color: var(--text); }
+
+/* Sub-heading with a fading rule */
+.subhead2 { display: flex; align-items: center; gap: 16px; margin: clamp(48px, 6vw, 70px) 0 26px; scroll-margin-top: 96px; }
+.subhead2 h3 { font: 600 1.35rem var(--display); letter-spacing: -0.02em; white-space: nowrap; }
+.subhead2::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(143, 208, 255, 0.35), transparent); }
+
+/* Applications: open columns with an accent line */
+.apps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(22px, 3vw, 40px); }
+.apps > li { position: relative; display: grid; gap: 10px; align-content: start; padding-top: 20px; transition: transform .4s cubic-bezier(.2, .7, .2, 1); }
+.apps > li::before { content: ""; position: absolute; left: 0; right: 55%; top: 0; height: 2px; border-radius: 2px; background: linear-gradient(90deg, var(--p-proj), transparent); transition: right .5s cubic-bezier(.2, .7, .2, 1), box-shadow .3s; }
+.apps > li:hover { transform: translateY(-4px); }
+.apps > li:hover::before { right: 0; box-shadow: 0 0 14px var(--p-proj); }
+.apps .idx { font: 500 0.76rem var(--mono); letter-spacing: .12em; color: var(--p-proj); }
+.apps h4 { font: 600 1.1rem/1.3 var(--display); letter-spacing: -0.015em; }
+
+/* Toolkit rows */
+.kit { display: grid; gap: 20px; }
+.kit > div { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 10px 30px; align-items: start; }
+.kit .side-h { margin: 6px 0 0; }
+.kit .side-h::after { display: none; }
+.kit .chips li { font-size: 0.88rem; padding: 6px 13px; }
+.kit-note { margin-top: 22px; color: var(--muted); font-size: 0.96rem; }
+
+/* Education */
+.edu2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+.edu2 .olist > li { gap: 4px; }
+.edu2 .olist .date { margin-top: 2px; }
+
+/* Achievements */
+.medals { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 34px; perspective: 700px; }
+.medals > li { display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 2px 16px; align-items: center; }
+.medals > li > :not(.medal) { grid-column: 2; }
+.medals .medal { grid-row: 1 / span 2; }
+.medals li:hover .medal { transform: rotateY(360deg); }
+.medals b { font-size: 1.02rem; line-height: 1.35; }
+.medals span:not(.medal) { font-size: 0.92rem; color: var(--muted); }
+.tv { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(22px, 3vw, 36px); }
+.tv > li { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 18px; align-items: center; }
+.tv .screen { aspect-ratio: 16 / 9; padding: 10px; transition: transform .4s cubic-bezier(.2, .7, .2, 1), box-shadow .3s; }
+.tv li:hover .screen { transform: perspective(600px) rotateY(-8deg) scale(1.03); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 20px 40px -20px var(--sc); }
+.tv .screen strong { font-size: 1.05rem; }
+.tv .screen em { font-size: 0.66rem; margin-top: 4px; }
+.tv .onair { left: 8px; top: 8px; font-size: 0.6rem; }
+.tv .text { display: grid; gap: 6px; }
+
+/* Vision */
+.vision { max-width: 880px; margin: 0 auto; display: grid; gap: 20px; justify-items: center; text-align: center; }
+.vision .eyebrow { display: inline-flex; justify-content: center; white-space: nowrap; }
+.vision .eyebrow::after { display: none; }
+.vision blockquote { margin: 0; font: 600 clamp(1.6rem, 3.6vw, 2.6rem)/1.22 var(--display); letter-spacing: -0.035em;
+  background: linear-gradient(100deg, #fff 20%, #a8dbff 60%, #ffe2b0 92%); -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 2px 0 rgba(110, 150, 245, 0.4)) drop-shadow(0 14px 30px rgba(60, 120, 255, 0.35)); }
+.vision p { max-width: 64ch; font-size: 1.05rem; }
+
+/* Contact */
+.connect { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
+.connect h2 { margin: 12px 0 14px; font-size: clamp(1.9rem, 4vw, 2.8rem); }
+.lines { display: grid; gap: 16px; margin-top: 26px; }
+.line { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.line .ico { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; color: var(--accent); background: radial-gradient(circle at 35% 35%, rgba(143, 208, 255, 0.25), rgba(143, 208, 255, 0.06)); box-shadow: 0 0 18px -6px var(--accent); flex-shrink: 0; }
+.line > div:not(.act) { display: grid; min-width: 0; flex: 1; }
+.line .act { flex: 0 0 auto; }
+.line small { font-size: 0.76rem; font-weight: 700; color: var(--muted); }
+.line .val { font: 600 1.08rem var(--body); color: var(--fg); text-decoration: none; overflow-wrap: anywhere; }
+.line .val:hover { color: var(--accent); }
+.form-panel { padding: clamp(22px, 3vw, 30px); margin-top: 0 !important; }
+.form-panel h3 { font: 600 1.2rem var(--display); margin-bottom: 4px; }
+
 /* Cosmic cursor (fine pointers only) */
 .cursor-ring { position: fixed; left: 0; top: 0; z-index: 9999; pointer-events: none; opacity: 0; will-change: transform, width, height;
   border: 1.5px solid rgba(160, 215, 255, 0.9); box-shadow: 0 0 22px -4px rgba(70, 140, 255, 0.9), inset 0 0 18px -8px rgba(143, 208, 255, 0.8); background: rgba(143, 208, 255, 0.05);
@@ -497,7 +636,7 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .sun::before, .sun::after, .pill.live::before, .scroll-cue i::after, h1, .btn::after, .glow::before { animation: none; }
+  .feat-vis .globe, .feat-vis::after, .feat-vis i, .sun::before, .sun::after, .pill.live::before, .scroll-cue i::after, h1, .btn::after, .glow::before { animation: none; }
 }
 
 /* Print: clean black-on-white version for recruiters */
@@ -528,13 +667,28 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
 @media (max-width: 960px) {
   .hero-grid { grid-template-columns: minmax(0, 1fr); }
   .skills, .awards, .glance { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .interests2 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .medals, .apps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .status { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .status > div:nth-child(3) { border-left: 0; }
   .status > div:nth-child(n+3) { border-top: 1px solid var(--line); }
 }
 @media (max-width: 760px) {
-  .about, .lead, .contact, .edu, .shows, .projects, .minor, .cert-grid { grid-template-columns: minmax(0, 1fr); }
+  .about, .lead, .contact, .edu, .shows, .projects, .minor, .cert-grid, .about2, .edu2, .connect, .tv { grid-template-columns: minmax(0, 1fr); }
+  .feat, .feat:nth-child(even) { grid-template-columns: minmax(0, 1fr); }
+  .feat:nth-child(even) .feat-vis { order: 0; }
+  .feat-vis { max-width: 220px; }
+  .kit > div { grid-template-columns: minmax(0, 1fr); }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 18px; }
+  .stats div:nth-child(3)::before { display: none; }
+  .interests2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .apps, .medals { grid-template-columns: minmax(0, 1fr); }
+  .tl::before { left: 6px; }
+  .tl > li { grid-template-columns: minmax(0, 1fr); padding-left: 30px; }
+  .tl > li::before { left: 0; }
+  .tl .when { text-align: left; margin-bottom: 6px; }
+  .tv > li { grid-template-columns: 150px minmax(0, 1fr); }
   .cert-grid li:nth-child(2) { border-top: 1px solid var(--line); }
   .foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .foot > :first-child { grid-column: 1 / -1; }
@@ -591,11 +745,10 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
       <a href="#about" style="--c: var(--sun)">About</a>
       <a href="#experience" style="--c: var(--p-exp)">Experience</a>
       <a href="#research" style="--c: var(--p-research)">Research</a>
-      <a href="#projects" style="--c: var(--p-proj)">Projects</a>
       <a href="#skills" style="--c: var(--p-skills)">Skills</a>
       <a href="#education" style="--c: var(--p-edu)">Education</a>
-      <a href="#leadership" style="--c: var(--p-lead)">Leadership</a>
       <a href="#achievements" style="--c: var(--p-ach)">Achievements</a>
+      <a href="#vision" style="--c: #a8dbff">Vision</a>
       <a href="#contact" style="--c: var(--accent)">Contact</a>
       <span class="nav-ind" id="nav-ind" aria-hidden="true"></span>
     </nav>
@@ -615,9 +768,9 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
       <div class="intro">
         <div class="badges"><p class="badge">Software Developer Intern at SNSS Global Services</p></div>
         <h1>Hritikesh Pandey</h1>
-        <p class="roleline">M.Sc. IT Student<span>·</span>AI/ML Researcher<span>·</span>Data &amp; Technology</p>
-        <p class="motto">Exploring technology. Building ideas. <em>Solving real-world problems.</em></p>
-        <p class="lede">M.Sc. IT candidate and Software Developer Intern with published machine-learning research. I build predictive models and data-driven applications in Python and Java, and I bring proven leadership from student representation, research webinars and national-level events.</p>
+        <p class="roleline">Technology<span>·</span>Research<span>·</span>Creativity<span>·</span>Leadership</p>
+        <p class="motto">Exploring possibilities at the intersection of <em>technology, data and human potential.</em></p>
+        <p class="lede">Information Technology postgraduate, Software Developer Intern and research enthusiast working across artificial intelligence, machine learning and data analytics, with real experience in leadership, public speaking and digital communication.</p>
         <div class="cta">
           <a class="btn btn-primary" href="#research">View my work</a>
           <a class="btn btn-ghost" href="#contact">Contact me</a>
@@ -642,286 +795,186 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
         <p class="hint">Hover or tap the sun and planets to explore my profile</p>
       </div>
     </div>
-    <div class="scroll-cue"><a href="#about"><i></i>Scroll to explore</a></div>
   </section>
 
   <div class="wrap" id="after-hero">
-    <div class="status reveal">
-      <div style="--sc: #4fd6a0"><span class="ico"><svg class="ic"><use href="#i-code"/></svg></span><small>Now</small><b>Software Developer Intern</b><span>SNSS Global Services, Mumbai</span></div>
-      <div style="--sc: var(--p-research)"><span class="ico"><svg class="ic"><use href="#i-flask"/></svg></span><small>Published</small><b>Crop yield prediction with ML</b><span>Co-author, <a href="https://www.ijrar.org/papers/IJRAR1ENP023.pdf" target="_blank" rel="noopener">IJRAR ↗</a></span></div>
-      <div style="--sc: var(--c-coral)"><span class="ico"><svg class="ic"><use href="#i-brain"/></svg></span><small>Researching</small><b>AI coral reef monitoring</b><span>M.Sc. IT research, in progress</span></div>
-      <div style="--sc: #ff8fa8"><span class="ico"><svg class="ic"><use href="#i-yt"/></svg></span><small>Featured</small><b>National TV game shows</b><span>Sony Entertainment Television</span></div>
+    <div class="stats reveal" aria-label="At a glance">
+      <div><b data-count="4">4</b><small>Research projects</small></div>
+      <div><b data-count="6">6</b><small>Awards and podium finishes</small></div>
+      <div><b data-count="1">1</b><small>Published paper</small></div>
+      <div><b data-count="2">2</b><small>National TV features</small></div>
     </div>
   </div>
 
   <!-- ============ About ============ -->
   <section class="sec" id="about" style="--c: var(--sun)">
     <div class="wrap">
-      <div class="about">
+      <div class="about2">
         <div class="reveal">
-          <header class="sec-head"><p class="eyebrow"><span class="globe" data-g="sun"></span>About me</p><h2>Engineer, researcher, communicator</h2></header>
+          <header class="sec-head"><p class="eyebrow"><span class="globe" data-g="sun"></span>About me</p><h2>A curious mind. A technology-driven approach. A vision to create impact.</h2></header>
           <div class="prose">
-            <p>I'm an <strong>M.Sc. Information Technology candidate (Part II)</strong> at Thakur College of Science and Commerce, Mumbai, and a <strong>Software Developer Intern at SNSS Global Services</strong>.</p>
-            <p>My work sits where <strong>machine learning, data analysis and software</strong> meet: predicting crop yield from soil and climate data, diagnosing crop disease from images, and, in my current research, detecting coral bleaching in underwater photographs.</p>
-            <p>Alongside the technical work, I have represented my class for three years, coordinated a research webinar with ONGC and CSIR-NIO, and anchored college events. I care about technology that solves real problems, and about explaining it clearly.</p>
+            <p>I'm pursuing my <strong>Master of Science in Information Technology (Part II)</strong> at Thakur College of Science and Commerce, Mumbai, after completing my B.Sc. IT there, and I work as a <strong>Software Developer Intern at SNSS Global Services</strong>.</p>
+            <p>My academic journey has taken me through programming, data analysis, machine learning and research-oriented problem-solving. Projects in <strong>agricultural yield prediction</strong> and <strong>AI-based environmental monitoring</strong> have shaped my interest in applying computational techniques to real-world challenges.</p>
+            <p>Student leadership, research-webinar coordination, event management and content creation have given me a broader perspective on communication, collaboration and execution. I'm working to become a versatile professional who bridges technology, research and practical business needs.</p>
           </div>
-          <div class="interests">
-            <p class="label">Career interests</p>
-            <ul class="chips"><li>Artificial intelligence</li><li>Machine learning</li><li>Data analysis</li><li>Business analysis</li><li>Research</li><li>Technology consulting</li><li>Digital communication</li><li>AI for the environment</li></ul>
-          </div>
+          <p class="pull">I don't just want to understand technology. I want to explore what it can make possible.</p>
         </div>
-        <div class="card bring reveal">
-          <ul>
-            <li><span class="ico"><svg class="ic"><use href="#i-flask"/></svg></span><div><b>Research mindset</b><span>I enjoy exploring problems, analysing information and turning ideas into structured research.</span></div></li>
-            <li><span class="ico"><svg class="ic"><use href="#i-code"/></svg></span><div><b>Technology</b><span>A growing foundation in AI, machine learning, data analysis and programming.</span></div></li>
-            <li><span class="ico"><svg class="ic"><use href="#i-mic"/></svg></span><div><b>Communication</b><span>Anchoring, presentations and event coordination have made me a confident communicator.</span></div></li>
-            <li><span class="ico"><svg class="ic"><use href="#i-users"/></svg></span><div><b>Leadership</b><span>I have taken responsibility for student teams, events, webinars and college activities.</span></div></li>
-            <li><span class="ico"><svg class="ic"><use href="#i-up"/></svg></span><div><b>Continuous learning</b><span>I keep exploring new technologies to grow both technically and professionally.</span></div></li>
+        <div class="reveal">
+          <p class="side-h">What I bring to the table</p>
+          <ul class="olist">
+            <li><b>Analytical thinking</b><span>Approaching problems systematically and interpreting information to find useful insights.</span></li>
+            <li><b>Technical curiosity</b><span>Exploring programming, machine learning, data tools and emerging technologies.</span></li>
+            <li><b>Communication</b><span>Presenting ideas clearly through talks, documentation and digital content.</span></li>
+            <li><b>Leadership</b><span>Taking initiative, coordinating teams and accepting responsibility.</span></li>
+            <li><b>Adaptability</b><span>Learning new concepts, embracing challenges and improving through practice.</span></li>
+            <li><b>Creative problem-solving</b><span>Connecting different ideas and perspectives into thoughtful solutions.</span></li>
           </ul>
         </div>
       </div>
-      <div class="glance reveal" aria-label="At a glance">
-        <div><b data-count="4">4</b><small>Research projects</small></div>
-        <div><b data-count="6">6</b><small>Awards and podium finishes</small></div>
-        <div><b data-count="3">3</b><small>Applications built</small></div>
-        <div><b data-count="2">2</b><small>National TV features</small></div>
-      </div>
+      <ul class="interests2 reveal" aria-label="Professional interests">
+        <li><span class="globe" data-g="neptune"></span><b>AI &amp; machine learning</b><span>Intelligent systems, predictive modelling and AI-driven solutions to practical problems.</span></li>
+        <li><span class="globe" data-g="earth"></span><b>Data analytics &amp; BI</b><span>Turning raw information into insights that support informed decisions.</span></li>
+        <li><span class="globe" data-g="saturn"></span><b>Research &amp; innovation</b><span>Investigating emerging technologies and structuring approaches to complex problems.</span></li>
+        <li><span class="globe" data-g="venus"></span><b>Digital communication</b><span>Combining creativity and strategy to build engaging digital experiences.</span></li>
+        <li><span class="globe" data-g="jupiter"></span><b>Leadership &amp; coordination</b><span>Bringing people together and turning plans into execution.</span></li>
+      </ul>
     </div>
   </section>
 
-  <!-- ============ Experience ============ -->
+  <!-- ============ Experience & leadership ============ -->
   <section class="sec" id="experience" style="--c: var(--p-exp)">
     <div class="wrap">
-      <header class="sec-head reveal"><p class="eyebrow"><span class="globe" data-g="earth"></span>Experience</p><h2>Professional experience</h2><p>Software development today, and nearly two years of technical operations before that.</p></header>
-      <ol class="timeline" id="timeline">
-        <li class="card job now reveal">
-          <div class="job-top">
-            <div><h3>Software Developer Intern</h3><p class="meta">SNSS Global Services · Mumbai · On-site</p></div>
-            <p class="job-side"><span class="pill live" style="--pc: #4fd6a0">Current</span><span class="date">Aug 2026 – Present</span></p>
+      <header class="sec-head reveal"><p class="eyebrow"><span class="globe" data-g="earth"></span>Experience</p><h2>Experience &amp; leadership</h2><p>Software development today, built on years of coordinating people, events and operations.</p></header>
+      <ol class="tl" id="timeline">
+        <li class="now reveal">
+          <p class="when"><b>Current</b>Aug 2026 – now</p>
+          <div class="what">
+            <h3>Software Developer Intern</h3>
+            <p class="meta">SNSS Global Services · Mumbai · On-site</p>
+            <p>Working across the full software development life cycle, from analysis and coding to testing and deployment, with developers, designers and managers in cross-functional teams.</p>
+            <ul class="chips"><li>SDLC</li><li>Debugging</li><li>Team collaboration</li></ul>
           </div>
-          <ul class="dots">
-            <li><span>Work across the <b>full software development life cycle</b>, from analysis and coding to testing and deployment.</span></li>
-            <li><span>Collaborate with developers, designers and managers in cross-functional teams.</span></li>
-            <li><span>Find and fix bugs and performance issues in company applications.</span></li>
-            <li><span>Learn and apply new frameworks and tools as each project needs.</span></li>
-          </ul>
         </li>
-        <li class="card job reveal">
-          <div class="job-top">
-            <div><h3>Examination Centre &amp; Technical Operations</h3><p class="meta">MeritTrac · TCS iON · Ginger examination activities</p></div>
-            <p class="date">Dec 2020 – Aug 2022</p>
+        <li class="reveal">
+          <p class="when"><b>Coordinator</b>2026 – 27</p>
+          <div class="what">
+            <h3>TCSC–ONGC–CSIR (NIO) Research Webinar</h3>
+            <p class="meta">Student Coordinator</p>
+            <p>Supported student coordination, session planning, speaker communication and the organisation of research sessions spanning AI, machine learning, biology, environmental and marine science.</p>
           </div>
-          <ul class="dots">
-            <li><span>Managed <b>online examination centres</b>, including server set-up and technical coordination before every session.</span></li>
-            <li><span>Handled candidate management, invigilation and operational support for <b>government and banking recruitment exams</b>.</span></li>
-            <li><span>Troubleshot live issues and maintained examination protocols for hundreds of candidates per session.</span></li>
-          </ul>
-          <ul class="chips"><li>Server coordination</li><li>Troubleshooting</li><li>Candidate management</li><li>Exam protocols</li></ul>
+        </li>
+        <li class="reveal" id="leadership">
+          <p class="when"><b>Leadership</b>2022 – 25</p>
+          <div class="what">
+            <h3>Student leadership &amp; college activities</h3>
+            <p class="meta">Thakur College of Science and Commerce</p>
+            <p>Responsibilities as Class Representative, Student Manager, Anchoring Head and cultural-committee contingent leader built practical experience in communication, coordination, event execution and teamwork. I also managed the DLLE Survey Research Programme for two years and represented the college at Youth Parliament three times, serving as Prime Minister in 2025.</p>
+            <ul class="chips"><li>Class Representative</li><li>Student Manager</li><li>Anchoring Head</li><li>Contingent Leader</li><li>DLLE Student Manager</li><li>Youth Parliament</li></ul>
+          </div>
+        </li>
+        <li class="reveal">
+          <p class="when"><b>Ongoing</b>Digital</p>
+          <div class="what">
+            <h3>Digital communication &amp; social media</h3>
+            <p>Social media management, content planning, business-profile optimisation, WhatsApp Business catalogues and digital brand communication, combining practical execution with creative thinking.</p>
+          </div>
+        </li>
+        <li class="reveal">
+          <p class="when"><b>Operations</b>Dec 2020 – Aug 2022</p>
+          <div class="what">
+            <h3>Examination centre &amp; technical operations</h3>
+            <p class="meta">MeritTrac · TCS iON · Ginger</p>
+            <p>Ran online examination centres for government and banking recruitment exams: server set-up, technical support, candidate management and strict adherence to examination procedures.</p>
+          </div>
         </li>
       </ol>
     </div>
   </section>
 
-  <!-- ============ Research ============ -->
+  <!-- ============ Research & projects ============ -->
   <section class="sec" id="research" style="--c: var(--p-research)">
     <div class="wrap">
-      <header class="sec-head reveal"><p class="eyebrow"><span class="globe" data-g="saturn"></span>Research</p><h2>Research case studies</h2><p>Machine learning and computer vision applied to agriculture and the environment, from published work to my current M.Sc. research.</p></header>
-      <div class="cases">
-        <article class="card case reveal" style="--c: var(--c-crop)">
-          <div class="case-head">
-            <div class="case-tags"><span class="pill" style="--pc: var(--c-crop)">Published · IJRAR</span><span class="label">Machine learning · Agriculture</span></div>
-            <h3>Crop Yield Prediction using Machine Learning on Multivariate Agriculture</h3>
-            <p>A machine-learning approach that predicts agricultural crop yield from environmental and soil conditions, so farmers and planners can make data-driven decisions.</p>
-          </div>
-          <div class="flow">
-            <div><h4>Data</h4><p>Rainfall, temperature, soil pH, nitrogen, phosphorus, potassium, region and crop type.</p></div>
-            <div><h4>Method</h4><p>Data preprocessing, feature engineering, model training and evaluation.</p></div>
-            <div><h4>Models</h4><ul class="dots"><li><span>Random Forest</span></li><li><span>LightGBM</span></li><li><span>XGBoost</span></li></ul></div>
-            <div><h4>Outcome</h4><p>Published in IJRAR and presented at an international research presentation.</p></div>
-          </div>
-          <div class="case-foot">
-            <ul class="chips"><li>Python</li><li>Pandas</li><li>NumPy</li><li>Scikit-learn</li><li>XGBoost</li><li>LightGBM</li><li>Matplotlib</li></ul>
-            <a class="btn btn-tint btn-sm" href="https://www.ijrar.org/papers/IJRAR1ENP023.pdf" target="_blank" rel="noopener">Read the paper (PDF) ↗</a>
+      <header class="sec-head reveal"><p class="eyebrow"><span class="globe" data-g="saturn"></span>Research</p><h2>Selected projects &amp; research</h2></header>
+      <p class="lead-in reveal">Research has become central to my academic development. I'm interested in how technology can address challenges in agriculture, environmental monitoring and data-driven decision-making, and I see research as a chance to ask better questions, evaluate ideas and understand the world more deeply.</p>
+      <div class="feats">
+        <article class="feat reveal" style="--c: var(--c-crop)">
+          <div class="feat-vis" aria-hidden="true"><span class="globe" data-g="earth"></span><i></i></div>
+          <div class="feat-text">
+            <div class="feat-tags"><span class="feat-num">01</span><span class="pill" style="--pc: var(--c-crop)">Published · IJRAR</span></div>
+            <h3>Crop Yield Prediction Using Machine Learning on Multivariate Agriculture</h3>
+            <p>Predicting agricultural crop yield from environmental, geographical and soil parameters (rainfall, temperature, soil pH, nitrogen, phosphorus, potassium, region and crop type), using feature engineering, model evaluation and visualisation with Random Forest, LightGBM and XGBoost.</p>
+            <ul class="chips"><li>Python</li><li>Machine learning</li><li>Predictive modelling</li><li>XGBoost</li><li>LightGBM</li></ul>
+            <div class="feat-links"><a class="btn btn-tint btn-sm" style="--c: var(--c-crop)" href="https://www.ijrar.org/papers/IJRAR1ENP023.pdf" target="_blank" rel="noopener">Read the paper (PDF) ↗</a></div>
           </div>
         </article>
-
-        <article class="card case reveal" style="--c: var(--c-coral)">
-          <div class="case-head">
-            <div class="case-tags"><span class="pill live" style="--pc: var(--c-coral)">In progress</span><span class="label">M.Sc. research · Computer vision</span></div>
+        <article class="feat reveal" style="--c: var(--c-coral)">
+          <div class="feat-vis" aria-hidden="true"><span class="globe" data-g="neptune"></span><i></i></div>
+          <div class="feat-text">
+            <div class="feat-tags"><span class="feat-num">02</span><span class="pill live" style="--pc: var(--c-coral)">In progress · M.Sc. research</span></div>
             <h3>AI-Based Coral Reef Health Monitoring Using Underwater Image Processing</h3>
-            <p>Coral bleaching is one of the clearest visual signs of reef decline, yet surveys still rely on trained divers and manual image review. This research asks how well AI can tell healthy coral from bleached coral in underwater photographs.</p>
-          </div>
-          <div class="flow">
-            <div><h4>Data</h4><p>896 underwater coral photographs labelled healthy or bleached, with duplicate images removed before splitting.</p></div>
-            <div><h4>Approach</h4><p>A four-stage underwater image restoration (Gray-World, CLAHE, bilateral filter, sharpening) feeding ImageNet transfer learning.</p></div>
-            <div><h4>Evaluation</h4><p>Four CNN backbones compared with 5-fold cross-validation and statistical tests; Grad-CAM shows where each model looks.</p></div>
-            <div><h4>Goal</h4><p>A technology-assisted approach that helps researchers monitor coral reef ecosystems more efficiently.</p></div>
-          </div>
-          <div class="case-foot">
-            <ul class="chips"><li>Python</li><li>TensorFlow / Keras</li><li>OpenCV</li><li>MobileNetV2</li><li>ResNet50</li><li>EfficientNet</li><li>DenseNet</li><li>Grad-CAM</li></ul>
-            <p class="meta">With <b>Prof. Amit Kumar Pandey</b> and <b>Mohammed Saqlain Shaikh</b></p>
+            <p>Applying artificial intelligence and image processing to underwater photographs to tell healthy coral from bleached coral, combining underwater image restoration, transfer learning on CNN backbones and Grad-CAM explanations to support marine ecosystem research.</p>
+            <ul class="chips"><li>Computer vision</li><li>Image processing</li><li>Transfer learning</li><li>Grad-CAM</li><li>Environmental research</li></ul>
+            <p class="meta">With Prof. Amit Kumar Pandey and Mohammed Saqlain Shaikh</p>
           </div>
         </article>
-
-        <div class="minor">
-          <article class="card case reveal" style="--c: var(--c-diag)">
-            <div class="case-head">
-              <div class="case-tags"><span class="pill" style="--pc: var(--c-diag)">Academic research</span><span class="label">Image processing</span></div>
-              <h3>Crop Diagnosis Using Digital Image Processing</h3>
-              <p>Explored digital image processing and CNN-based image classification to identify crop conditions from plant images, including transfer learning on leaf photographs.</p>
-            </div>
-            <div><p class="label" style="margin-bottom: 8px">Crops studied</p><ul class="chips"><li>Rice</li><li>Maize</li><li>Cotton</li><li>Groundnut</li><li>Chilli</li></ul></div>
-            <p class="meta">With Dr. Santosh Kumar Singh, Asst. Prof. Amit Pandey and Mohammed Saqlain Shaikh</p>
-          </article>
-          <article class="card case reveal" style="--c: var(--c-temp)">
-            <div class="case-head">
-              <div class="case-tags"><span class="pill" style="--pc: var(--c-temp)">Research concept</span><span class="label">Soft computing</span></div>
-              <h3>Zonal Earth Surface Temperature Prediction</h3>
-              <p>Predicting Earth surface temperature with soft computing and machine-learning techniques, by processing environmental datasets to find patterns and build predictive models for temperature estimation.</p>
-            </div>
-            <div><p class="label" style="margin-bottom: 8px">Focus</p><ul class="chips"><li>Environmental data</li><li>Pattern discovery</li><li>Predictive modelling</li><li>Soft computing</li></ul></div>
-          </article>
-        </div>
+        <article class="feat reveal" style="--c: var(--c-diag)">
+          <div class="feat-vis" aria-hidden="true"><span class="globe" data-g="mars"></span><i></i></div>
+          <div class="feat-text">
+            <div class="feat-tags"><span class="feat-num">03</span><span class="pill" style="--pc: var(--c-diag)">Academic research</span></div>
+            <h3>Crop Diagnosis Using Digital Image Processing</h3>
+            <p>Image-based crop diagnosis through computer vision and deep learning, using CNN classification on leaf images of crops such as rice, maize, cotton, groundnut and chilli.</p>
+            <ul class="chips"><li>Image classification</li><li>CNNs</li><li>Digital image processing</li><li>Agricultural technology</li></ul>
+          </div>
+        </article>
       </div>
+      <p class="also reveal">Also exploring: <b>Zonal Earth surface temperature prediction</b> with soft computing and machine learning.</p>
+
+      <div class="subhead2 reveal" id="projects"><h3>Applications I've built</h3></div>
+      <ul class="apps reveal">
+        <li><span class="idx">01 · Final-year project</span><h4>THE BLANK: Home Service Companion</h4><p>A web platform for booking home services, built end to end on an MVC + DAO architecture with a MySQL schema for providers, bookings and transactions.</p><ul class="chips"><li>Java</li><li>MySQL</li><li>MVC + DAO</li></ul></li>
+        <li><span class="idx">02 · Team project</span><h4>Online Quiz &amp; Learning Platform</h4><p>Timed quizzes with automatic scoring for many users at once, and a Power BI dashboard of trends by topic. I owned the backend, database and analytics.</p><ul class="chips"><li>Java</li><li>MySQL</li><li>Power BI</li></ul></li>
+        <li><span class="idx">03 · Team project</span><h4>Inventory &amp; Sales Analytics</h4><p>Stock, sales and supplier tracking for a small retailer, with Power BI views for sales trends, low-stock alerts and revenue.</p><ul class="chips"><li>Java</li><li>MySQL</li><li>Power BI</li></ul></li>
+      </ul>
     </div>
   </section>
 
-  <!-- ============ Projects ============ -->
-  <section class="sec" id="projects" style="--c: var(--p-proj)">
-    <div class="wrap">
-      <header class="sec-head reveal"><p class="eyebrow"><span class="globe" data-g="mars"></span>Projects</p><h2>Selected projects</h2><p>Full-stack Java applications backed by relational databases and Power BI analytics, plus ongoing data-analysis work in Python.</p></header>
-      <div class="projects reveal">
-        <article class="card project tilt">
-          <p class="ptag"><span>Final-year project</span><span class="date">01</span></p>
-          <h3>THE BLANK: Home Service Companion</h3>
-          <p>A web platform where customers find and book home services such as cleaning, repair and maintenance.</p>
-          <p class="role-line"><b>My role:</b> built it end to end</p>
-          <ul class="dots">
-            <li><span><b>Model–Controller–DAO</b> architecture keeps data, logic and UI separate.</span></li>
-            <li><span>Java booking workflows and service management.</span></li>
-            <li><span>MySQL schema for providers, bookings and transactions.</span></li>
-          </ul>
-          <ul class="chips"><li>Java</li><li>MySQL</li><li>HTML/CSS</li><li>MVC + DAO</li></ul>
-        </article>
-        <article class="card project tilt">
-          <p class="ptag"><span>Team project</span><span class="date">02</span></p>
-          <h3>Online Quiz &amp; Learning Platform</h3>
-          <p>Timed quizzes with instant scores and a performance history for every learner.</p>
-          <p class="role-line"><b>My role:</b> backend, database and analytics</p>
-          <ul class="dots">
-            <li><span>Java logic for <b>automatic scoring</b> and many users at once.</span></li>
-            <li><span>MySQL schema for questions, users and results.</span></li>
-            <li><span><b>Power BI</b> dashboard showing trends by topic.</span></li>
-          </ul>
-          <ul class="chips"><li>Java</li><li>MySQL</li><li>HTML/CSS</li><li>Power BI</li></ul>
-        </article>
-        <article class="card project tilt">
-          <p class="ptag"><span>Team project</span><span class="date">03</span></p>
-          <h3>Inventory &amp; Sales Analytics</h3>
-          <p>Stock and sales tracking for a small retail business, with dashboards for the owner.</p>
-          <p class="role-line"><b>My role:</b> backend, database and dashboards</p>
-          <ul class="dots">
-            <li><span>Java layer for stock, sales and supplier records.</span></li>
-            <li><span>Relational MySQL design with referential integrity.</span></li>
-            <li><span><b>Power BI</b> views for sales trends, low-stock alerts and revenue.</span></li>
-          </ul>
-          <ul class="chips"><li>Java</li><li>MySQL</li><li>Power BI</li></ul>
-        </article>
-        <article class="card project tilt">
-          <p class="ptag"><span>Ongoing practice</span><span class="date">04</span></p>
-          <h3>Data Analysis &amp; Visualization</h3>
-          <p>End-to-end work with real datasets, from raw data to a clear, explained result.</p>
-          <ul class="dots">
-            <li><span>Clean, preprocess and explore data to find <b>patterns and relationships</b>.</span></li>
-            <li><span>Build predictive models and <b>compare machine-learning algorithms</b>.</span></li>
-            <li><span>Create visualisations and interpret model performance for decision-makers.</span></li>
-          </ul>
-          <ul class="chips"><li>Python</li><li>Pandas</li><li>NumPy</li><li>Matplotlib</li><li>Scikit-learn</li><li>Power BI</li></ul>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ Skills ============ -->
+  <!-- ============ Toolkit ============ -->
   <section class="sec" id="skills" style="--c: var(--p-skills)">
     <div class="wrap">
-      <header class="sec-head reveal"><p class="eyebrow"><span class="globe" data-g="mercury"></span>Skills</p><h2>Technical toolkit</h2><p>Highlighted tools are the ones I use most in day-to-day work.</p></header>
-      <div class="skills reveal">
-        <div class="card skill"><div class="skill-top"><span class="ico"><svg class="ic"><use href="#i-code"/></svg></span><h3>Programming</h3></div><ul class="chips"><li class="core">Python</li><li class="core">Java</li><li>C++</li><li>HTML</li><li>CSS</li></ul></div>
-        <div class="card skill"><div class="skill-top"><span class="ico"><svg class="ic"><use href="#i-db"/></svg></span><h3>Data &amp; databases</h3></div><ul class="chips"><li class="core">MySQL</li><li>PL/SQL</li><li class="core">Power BI</li><li>Data analysis</li><li>Data visualisation</li></ul></div>
-        <div class="card skill"><div class="skill-top"><span class="ico"><svg class="ic"><use href="#i-brain"/></svg></span><h3>AI &amp; machine learning</h3></div><ul class="chips"><li>Regression</li><li>Classification</li><li>Random Forest</li><li>XGBoost</li><li>LightGBM</li><li>SVM</li><li>Computer vision</li><li>Image processing</li></ul></div>
-        <div class="card skill"><div class="skill-top"><span class="ico"><svg class="ic"><use href="#i-tool"/></svg></span><h3>Libraries &amp; tools</h3></div><ul class="chips"><li class="core">Pandas</li><li>NumPy</li><li class="core">Scikit-learn</li><li>Matplotlib</li><li>Git &amp; GitHub</li><li>Eclipse</li><li>Canva</li><li>MS Office</li><li>Google Workspace</li></ul></div>
-        <div class="card skill"><div class="skill-top"><span class="ico"><svg class="ic"><use href="#i-chat"/></svg></span><h3>Social media &amp; digital</h3></div><ul class="chips"><li>Social media strategy</li><li>Instagram content planning</li><li>WhatsApp Business</li><li>Content writing</li><li>Branding</li><li>Profile optimisation</li><li>Basic SEO</li></ul></div>
-        <div class="card skill"><div class="skill-top"><span class="ico"><svg class="ic"><use href="#i-users"/></svg></span><h3>Professional</h3></div><ul class="chips"><li>Research &amp; documentation</li><li>Technical presentation</li><li class="core">Public speaking</li><li>Event management</li><li>Leadership</li><li>Communication</li></ul></div>
+      <header class="sec-head reveal"><p class="eyebrow"><span class="globe" data-g="mercury"></span>Skills</p><h2>Technical toolkit</h2></header>
+      <div class="kit reveal">
+        <div style="--c: #8fd0ff"><p class="side-h">Programming</p><ul class="chips"><li class="core">Python</li><li class="core">Java</li><li>C++</li><li>HTML</li><li>CSS</li></ul></div>
+        <div style="--c: #6fe0c8"><p class="side-h">Data &amp; databases</p><ul class="chips"><li class="core">MySQL</li><li>PL/SQL</li><li>Pandas</li><li>NumPy</li></ul></div>
+        <div style="--c: #b9a3ff"><p class="side-h">AI &amp; machine learning</p><ul class="chips"><li class="core">Scikit-learn</li><li>Random Forest</li><li>XGBoost</li><li>LightGBM</li><li>SVM</li><li>Computer vision</li></ul></div>
+        <div style="--c: #ffcf7a"><p class="side-h">Visualisation &amp; productivity</p><ul class="chips"><li class="core">Power BI</li><li>Matplotlib</li><li>Microsoft Office</li><li>Google Workspace</li><li>Canva</li></ul></div>
+        <div style="--c: #ff9fb4"><p class="side-h">Professional skills</p><ul class="chips"><li>Research</li><li>Documentation</li><li>Presentations</li><li class="core">Public speaking</li><li>Leadership</li><li>Coordination</li><li>Content creation</li></ul></div>
       </div>
+      <p class="kit-note reveal">My toolkit keeps evolving as I learn new technologies and apply them through academic projects and independent exploration.</p>
     </div>
   </section>
 
   <!-- ============ Education ============ -->
   <section class="sec" id="education" style="--c: var(--p-edu)">
     <div class="wrap">
-      <header class="sec-head reveal"><p class="eyebrow"><span class="globe" data-g="neptune"></span>Education</p><h2>Education &amp; certifications</h2><p>Information Technology at Thakur College of Science and Commerce, Mumbai.</p></header>
-      <div class="edu reveal">
-        <div class="card degree">
-          <div class="degree-top"><h3>M.Sc. Information Technology</h3><span class="pill live" style="--pc: var(--c-coral)">Part II</span></div>
-          <p class="meta">Thakur College of Science and Commerce (TCSC), Mumbai</p>
-          <span class="date">2025 – 2027 · Currently pursuing</span>
-          <ul class="chips"><li>Artificial intelligence</li><li>Machine learning</li><li>Data analysis</li><li>Computer vision</li><li>Research methodology</li><li>Automation</li></ul>
-        </div>
-        <div class="card degree">
-          <div class="degree-top"><h3>B.Sc. Information Technology</h3><span class="pill" style="--pc: var(--p-edu)">Completed</span></div>
-          <p class="meta">Thakur College of Science and Commerce, Mumbai</p>
-          <span class="date">2022 – 2025</span>
-          <ul class="chips"><li>Software engineering</li><li>Operating systems</li><li>DBMS</li></ul>
-        </div>
-        <div class="card degree">
-          <div class="degree-top"><h3>Higher Secondary Certificate (HSC)</h3><span class="pill" style="--pc: var(--p-edu)">Completed</span></div>
-          <p class="meta">Thakur College of Science and Commerce, Mumbai</p>
-          <span class="date">2019 – 2021</span>
-        </div>
-        <div class="card degree">
-          <div class="degree-top"><h3>Secondary School Certificate (SSC)</h3><span class="pill" style="--pc: var(--p-edu)">Completed</span></div>
-          <p class="meta">Dr. H.B. Mishra English High School</p>
-          <span class="date">2019</span>
-        </div>
-      </div>
-      <div class="card certs reveal">
-        <h3>Certifications</h3>
-        <ul class="cert-grid">
-          <li><b>Python for Data Science</b><span>NPTEL · Python programming and its use in data science</span></li>
-          <li><b>Power BI &amp; Business Intelligence</b><span>Thakur College value-added course</span></li>
-          <li><b>Remote Sensing &amp; Geospatial Technology</b><span>IIRS (ISRO) · multiple programmes</span></li>
-          <li><b>Survey Research Programme</b><span>DLLE, University of Mumbai</span></li>
-          <li><b>German Language, A1</b><span>Thakur College value-added course</span></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ Leadership ============ -->
-  <section class="sec" id="leadership" style="--c: var(--p-lead)">
-    <div class="wrap">
-      <header class="sec-head reveal"><p class="eyebrow"><span class="globe" data-g="jupiter"></span>Leadership</p><h2>Leadership &amp; responsibilities</h2><p>Representing students, running events and coordinating research initiatives at college.</p></header>
-      <div class="lead reveal">
-        <div class="card roles">
-          <h3>Roles</h3>
-          <ul class="rows">
-            <li><b>Class Representative</b><em>2022–25</em><span>A communication bridge between students and faculty for multiple years</span></li>
-            <li><b>Student Manager</b><em>College</em><span>Student coordination, communication, event activities and operations</span></li>
-            <li><b>Anchoring Head, IT Department</b><em>2 years</em><span>Anchoring and stage coordination for college events</span></li>
-            <li><b>Cultural Committee, Contingent Leader</b><em>College</em><span>Led the department contingent and student participation in cultural activities</span></li>
-            <li><b>Student Manager, DLLE Survey Research</b><em>2 years</em><span>Coordinated the DLLE Survey Research Programme, University of Mumbai</span></li>
-            <li><b>Youth Parliament delegate</b><em>3 years</em><span>Represented the college three years in a row; served as Prime Minister in 2025</span></li>
+      <header class="sec-head reveal"><p class="eyebrow"><span class="globe" data-g="neptune"></span>Education</p><h2>Education &amp; certifications</h2></header>
+      <div class="edu2">
+        <div class="reveal">
+          <p class="side-h">Degrees</p>
+          <ul class="olist">
+            <li><b>Master of Science in Information Technology</b><span>Thakur College of Science and Commerce, Mumbai</span><span class="date">2025 – 2027 · Currently pursuing Part II</span></li>
+            <li><b>Bachelor of Science in Information Technology</b><span>Thakur College of Science and Commerce, Mumbai</span><span class="date">2022 – 2025 · Completed</span></li>
+            <li><b>Higher Secondary &amp; Secondary School</b><span>Thakur College of Science and Commerce · Dr. H.B. Mishra English High School</span><span class="date">2019 – 2021</span></li>
           </ul>
         </div>
-        <div class="card webinar">
-          <span class="pill" style="--pc: var(--p-lead)">Student Coordinator · 2026–27</span>
-          <h3>TCSC–ONGC–CSIR (NIO) Research Webinar</h3>
-          <p>Coordinated a research webinar initiative bringing students together with research-oriented sessions.</p>
-          <div><p class="label" style="margin-bottom: 8px">Responsibilities</p>
-            <ul class="dots"><li><span>Speaker and student coordination</span></li><li><span>Session scheduling and communication</span></li><li><span>Technical coordination and presentation management</span></li><li><span>Event execution on the day</span></li></ul></div>
-          <div><p class="label" style="margin-bottom: 8px">Topics covered</p>
-            <ul class="chips"><li>AI</li><li>Machine learning</li><li>Biology</li><li>Environmental science</li><li>Marine science</li><li>Research</li></ul></div>
+        <div class="reveal" style="--c: #6fe0c8">
+          <p class="side-h">Learning &amp; certifications</p>
+          <ul class="olist">
+            <li><b>Python for Data Science</b><span>NPTEL</span></li>
+            <li><b>Power BI &amp; Business Intelligence</b><span>Training and value-added course</span></li>
+            <li><b>Remote sensing &amp; geospatial programmes</b><span>IIRS (ISRO) · multiple programmes</span></li>
+            <li><b>Survey Research Programme</b><span>DLLE, University of Mumbai</span></li>
+            <li><b>German Language, A1</b><span>Thakur College value-added course</span></li>
+          </ul>
         </div>
       </div>
     </div>
@@ -930,35 +983,33 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
   <!-- ============ Achievements ============ -->
   <section class="sec" id="achievements" style="--c: var(--p-ach)">
     <div class="wrap">
-      <header class="sec-head reveal"><p class="eyebrow"><span class="globe" data-g="venus"></span>Achievements</p><h2>Awards and recognition</h2><p>Competitions, speaking and student awards, plus appearances on national television.</p></header>
-      <div class="awards reveal">
-        <div class="card award"><span class="medal m-gold" aria-hidden="true">★</span><span class="place">Winner</span><b>Best Boy, IT / DS / AI-ML Department</b><span>Thakur College of Science and Commerce</span></div>
-        <div class="card award"><span class="medal m-gold" aria-hidden="true">1st</span><span class="place">1st position</span><b>Techbit 5.0</b><span>Best College, with me as Contingent Leader</span></div>
-        <div class="card award"><span class="medal m-gold" aria-hidden="true">1st</span><span class="place">1st position</span><b>Funbaazi – I for India Quiz</b><span>Quiz competition</span></div>
-        <div class="card award"><span class="medal m-star" aria-hidden="true">★</span><span class="place">Award</span><b>Eminent Speaker Award</b><span>Youth Parliament 2025, serving as Prime Minister</span></div>
-        <div class="card award"><span class="medal m-silver" aria-hidden="true">2nd</span><span class="place">2nd position</span><b>HR InQuest Podcast</b><span>Podcast competition</span></div>
-        <div class="card award"><span class="medal m-bronze" aria-hidden="true">3rd</span><span class="place">3rd position</span><b>MUN Umang</b><span>Model United Nations</span></div>
-      </div>
-      <p class="note reveal">Also nominated for <strong>Best Boy of College</strong>, and an active host and participant across college events.</p>
+      <header class="sec-head reveal"><p class="eyebrow"><span class="globe" data-g="venus"></span>Achievements</p><h2>Achievements &amp; recognition</h2><p>Recognition across technology, communication, leadership and student activities, a reminder of the value of preparation, teamwork and consistent effort.</p></header>
+      <ul class="medals reveal">
+        <li><span class="medal m-gold" aria-hidden="true">★</span><b>Best Boy, IT / DS / AI-ML Department</b><span>Thakur College of Science and Commerce</span></li>
+        <li><span class="medal m-gold" aria-hidden="true">1st</span><b>Techbit 5.0</b><span>First place, as Contingent Leader</span></li>
+        <li><span class="medal m-gold" aria-hidden="true">1st</span><b>Funbaazi – I for India Quiz</b><span>First place</span></li>
+        <li><span class="medal m-star" aria-hidden="true">★</span><b>Eminent Speaker Award</b><span>Youth Parliament 2025, as Prime Minister</span></li>
+        <li><span class="medal m-silver" aria-hidden="true">2nd</span><b>HR InQuest Podcast</b><span>Second place</span></li>
+        <li><span class="medal m-bronze" aria-hidden="true">3rd</span><b>MUN Umang</b><span>Third place</span></li>
+        <li><span class="medal m-star" aria-hidden="true">✦</span><b>Published research</b><span>Agricultural machine learning, IJRAR</span></li>
+      </ul>
+      <div class="subhead2 reveal"><h3>Featured on national television</h3></div>
+      <ul class="tv reveal">
+        <li><div class="screen" style="--sc: #ffb547"><span class="onair">Featured</span><div><strong>The Indian Game Show</strong><em>Season 2 · Ep 34</em></div></div>
+          <div class="text"><b>The Indian Game Show</b><span class="meta">Season 2, Episode 34 · Sony Entertainment Television</span><a href="https://www.sonyliv.com/shows/indian-game-show-1790007836" target="_blank" rel="noopener">Watch on Sony LIV ↗</a></div></li>
+        <li><div class="screen" style="--sc: #ff6b8e"><span class="onair">Featured</span><div><strong>Tum Ho Naa</strong><em>Ghar Ki Superstar</em></div></div>
+          <div class="text"><b>Tum Ho Naa</b><span class="meta">Hosted by Rajeev Khandelwal · Sony Entertainment Television</span><a href="https://www.sonyliv.com/shows/tum-ho-naa-1790007682" target="_blank" rel="noopener">Watch on Sony LIV ↗</a></div></li>
+      </ul>
+    </div>
+  </section>
 
-      <div class="subhead reveal"><h3>Featured on national television</h3><p class="meta">Sony Entertainment Television · Sony LIV</p></div>
-      <div class="shows reveal">
-        <article class="card show">
-          <div class="screen" style="--sc: #ffb547"><span class="onair">Featured</span><div><strong>The Indian Game Show</strong><em>Season 2 · Episode 34</em></div><span class="channel-tag">SET · Sony LIV</span></div>
-          <div class="show-body">
-            <h3>The Indian Game Show</h3>
-            <p class="meta">Season 2, Episode 34 · Hosted by Bharti Singh and Haarsh Limbachiyaa</p>
-            <a class="btn btn-ghost btn-sm" href="https://www.sonyliv.com/shows/indian-game-show-1790007836" target="_blank" rel="noopener">Watch on Sony LIV ↗</a>
-          </div>
-        </article>
-        <article class="card show">
-          <div class="screen" style="--sc: #ff6b8e"><span class="onair">Featured</span><div><strong>Tum Ho Naa</strong><em>Ghar Ki Superstar</em></div><span class="channel-tag">SET · Sony LIV</span></div>
-          <div class="show-body">
-            <h3>Tum Ho Naa</h3>
-            <p class="meta">Game show hosted by Rajeev Khandelwal</p>
-            <a class="btn btn-ghost btn-sm" href="https://www.sonyliv.com/shows/tum-ho-naa-1790007682" target="_blank" rel="noopener">Watch on Sony LIV ↗</a>
-          </div>
-        </article>
+  <!-- ============ Vision ============ -->
+  <section class="sec" id="vision" style="--c: #a8dbff">
+    <div class="wrap">
+      <div class="vision reveal">
+        <p class="eyebrow"><span class="globe" data-g="uranus"></span>My vision</p>
+        <blockquote>“I want to build a career where technology, analytical thinking and creativity come together to solve meaningful problems.”</blockquote>
+        <p>I value work that encourages learning, experimentation and collaboration, whether that means analysing data, exploring an AI-based solution, contributing to research or communicating an idea. For me, success isn't about collecting skills or achievements; it's about applying them well, creating value and getting better with every experience.</p>
       </div>
     </div>
   </section>
@@ -966,38 +1017,33 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
   <!-- ============ Contact ============ -->
   <section class="sec" id="contact" style="--c: var(--accent)">
     <div class="wrap">
-      <div class="card contact reveal">
-        <div>
-          <p class="eyebrow"><span class="globe" data-g="uranus"></span>Contact</p>
-          <h2>Let's work together</h2>
-          <p>I'm open to roles and collaborations in AI, machine learning, data analysis, research and technology consulting. Email or WhatsApp me and I'll reply within a day.</p>
-          <p class="meta" style="display:flex;align-items:center;gap:8px"><svg class="ic"><use href="#i-pin"/></svg>Mumbai, Maharashtra, India</p>
-          <form class="form" id="contact-form" novalidate>
-            <div class="row">
-              <label class="field"><span>Your name</span><input name="name" type="text" autocomplete="name" placeholder="Jane Doe" required></label>
-              <label class="field"><span>Your email</span><input name="email" type="email" autocomplete="email" placeholder="jane@company.com" required></label>
-            </div>
-            <label class="field"><span>What is it about?</span>
-              <select name="topic"><option>Job opportunity</option><option>Internship</option><option>Research collaboration</option><option>Speaking or anchoring</option><option>Something else</option></select></label>
-            <label class="field"><span>Message</span><textarea name="message" placeholder="Tell me a little about the role or project…" required></textarea></label>
-            <div class="form-foot"><button class="btn btn-primary" type="submit">Send message</button><small id="form-note">Opens Gmail (or your mail app on mobile) with your message ready to send.</small></div>
-          </form>
-        </div>
-        <div class="channels">
-          <div class="channel">
-            <span class="ico"><svg class="ic"><use href="#i-mail"/></svg></span>
-            <div><small>Email</small><a class="val" id="email-val" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=hritikeshpandey18@gmail.com" data-mail target="_blank" rel="noopener">hritikeshpandey18@gmail.com</a></div>
-            <div class="act"><a class="primary" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=hritikeshpandey18@gmail.com" data-mail target="_blank" rel="noopener">Write</a><button class="copy" type="button" data-copy="hritikeshpandey18@gmail.com" data-target="email-val">Copy</button></div>
+      <div class="connect">
+        <div class="reveal">
+          <p class="eyebrow"><span class="globe" data-g="earth"></span>Let's connect</p>
+          <h2>Let's create something meaningful</h2>
+          <p>I'm always glad to connect with people who share a passion for technology, research, innovation and creative problem-solving, whether it's a project, an idea, a research opportunity or a role.</p>
+          <div class="lines">
+            <div class="line"><span class="ico"><svg class="ic"><use href="#i-mail"/></svg></span><div><small>Email</small><a class="val" id="email-val" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=hritikeshpandey18@gmail.com" data-mail target="_blank" rel="noopener">hritikeshpandey18@gmail.com</a></div><div class="act"><a class="primary" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=hritikeshpandey18@gmail.com" data-mail target="_blank" rel="noopener">Write</a><button class="copy" type="button" data-copy="hritikeshpandey18@gmail.com" data-target="email-val">Copy</button></div></div>
+            <div class="line"><span class="ico"><svg class="ic"><use href="#i-phone"/></svg></span><div><small>Phone · call or WhatsApp</small><a class="val" id="phone-val" href="tel:+918850187299">+91 88501 87299</a></div><div class="act"><a class="primary" href="tel:+918850187299"><svg class="ic"><use href="#i-phone"/></svg>Call</a><a href="https://wa.me/918850187299?text=Hi%20Hritikesh%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20connect." target="_blank" rel="noopener"><svg class="ic"><use href="#i-chat"/></svg>WhatsApp</a></div></div>
+            <div class="line"><span class="ico"><svg class="ic"><use href="#i-pin"/></svg></span><div><small>Location</small><span class="val">Mumbai, Maharashtra, India</span></div></div>
           </div>
-          <div class="channel">
-            <span class="ico"><svg class="ic"><use href="#i-phone"/></svg></span>
-            <div><small>Phone · call or WhatsApp</small><a class="val" id="phone-val" href="tel:+918850187299">+91 88501 87299</a></div>
-            <div class="act"><a class="primary" href="tel:+918850187299"><svg class="ic"><use href="#i-phone"/></svg>Call</a><a href="https://wa.me/918850187299?text=Hi%20Hritikesh%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20connect." target="_blank" rel="noopener"><svg class="ic"><use href="#i-chat"/></svg>WhatsApp</a></div>
-          </div>
-          <a class="channel" href="https://github.com/hritikeshpandey18-sketch" target="_blank" rel="noopener"><span class="ico"><svg class="ic"><use href="#i-gh"/></svg></span><div><small>GitHub</small><span class="val">github.com/hritikeshpandey18-sketch</span></div><span class="go" aria-hidden="true">↗</span></a>
-          <a class="channel" href="https://www.linkedin.com/in/hritikeshpandey" target="_blank" rel="noopener"><span class="ico"><svg class="ic"><use href="#i-in"/></svg></span><div><small>LinkedIn</small><span class="val">linkedin.com/in/hritikeshpandey</span></div><span class="go" aria-hidden="true">↗</span></a>
-          <a class="channel" href="https://www.youtube.com/@HritikeSpeaks" target="_blank" rel="noopener"><span class="ico"><svg class="ic"><use href="#i-yt"/></svg></span><div><small>YouTube · HritikeSpeaks</small><span class="val">My Hindi videos on geopolitics, society and history</span></div><span class="go" aria-hidden="true">↗</span></a>
+          <ul class="socials">
+            <li><a href="https://github.com/hritikeshpandey18-sketch" target="_blank" rel="noopener"><svg class="ic"><use href="#i-gh"/></svg>GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/hritikeshpandey" target="_blank" rel="noopener"><svg class="ic"><use href="#i-in"/></svg>LinkedIn</a></li>
+            <li><a href="https://www.youtube.com/@HritikeSpeaks" target="_blank" rel="noopener"><svg class="ic"><use href="#i-yt"/></svg>YouTube</a></li>
+          </ul>
         </div>
+        <form class="card form form-panel reveal" id="contact-form" novalidate>
+          <h3>Send a message</h3>
+          <div class="row">
+            <label class="field"><span>Your name</span><input name="name" type="text" autocomplete="name" placeholder="Jane Doe" required></label>
+            <label class="field"><span>Your email</span><input name="email" type="email" autocomplete="email" placeholder="jane@company.com" required></label>
+          </div>
+          <label class="field"><span>What is it about?</span>
+            <select name="topic"><option>Job opportunity</option><option>Internship</option><option>Research collaboration</option><option>Project or idea</option><option>Speaking or anchoring</option><option>Something else</option></select></label>
+          <label class="field"><span>Message</span><textarea name="message" placeholder="Tell me a little about the role, project or idea…" required></textarea></label>
+          <div class="form-foot"><button class="btn btn-primary" type="submit">Send message</button><small id="form-note">Opens Gmail (or your mail app on mobile) with your message ready to send.</small></div>
+        </form>
       </div>
     </div>
   </section>
@@ -1008,11 +1054,11 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
     <div class="foot">
       <div>
         <a class="brand" href="#top"><i>HP</i><span>Hritikesh Pandey</span></a>
-        <p>M.Sc. IT student, AI/ML researcher and Software Developer Intern in Mumbai. Exploring technology, building ideas, solving real-world problems.</p>
+        <p>Technology. Research. Creativity. Leadership. Exploring possibilities at the intersection of technology, data and human potential.</p>
       </div>
       <nav aria-label="Footer sections">
         <h4>Explore</h4>
-        <ul><li><a href="#experience">Experience</a></li><li><a href="#research">Research</a></li><li><a href="#projects">Projects</a></li><li><a href="#achievements">Achievements</a></li><li><a href="https://www.ijrar.org/papers/IJRAR1ENP023.pdf" target="_blank" rel="noopener">Research paper (PDF)</a></li></ul>
+        <ul><li><a href="#experience">Experience</a></li><li><a href="#research">Research</a></li><li><a href="#projects">Applications</a></li><li><a href="#achievements">Achievements</a></li><li><a href="#vision">Vision</a></li><li><a href="https://www.ijrar.org/papers/IJRAR1ENP023.pdf" target="_blank" rel="noopener">Research paper (PDF)</a></li></ul>
       </nav>
       <div>
         <h4>Connect</h4>
@@ -1223,7 +1269,7 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
   var GLOBE_URL = {}, ICON_L = (function () { var v = [-0.55, -0.5, 0.67], m = Math.hypot(v[0], v[1], v[2]); return [v[0] / m, v[1] / m, v[2] / m]; })();
   var iconSphere = null;
   function paintGlobes(name) {
-    if (!iconSphere) iconSphere = new Sphere(96, 0);
+    if (!iconSphere) iconSphere = new Sphere(200, 0);
     var cv = iconSphere.draw(TEX[name], 0.8, ICON_L, { emit: name === 'sun', atm: ATM[name], amb: 0.08 });
     GLOBE_URL[name] = cv.toDataURL();
     document.querySelectorAll('.globe[data-g="' + name + '"]').forEach(function (g) { g.style.backgroundImage = 'url(' + GLOBE_URL[name] + ')'; });
@@ -1519,7 +1565,7 @@ html.has-cursor, html.has-cursor * { cursor: none !important; }
       b: '<ul><li><span><strong>Software Developer Intern</strong>, SNSS Global Services, Aug 2026 to now</span></li><li><span><strong>Examination Centre &amp; Technical Operations</strong> for MeritTrac, TCS iON and Ginger, Dec 2020 to Aug 2022</span></li></ul>' },
     projects: { g: 'mars', k: 'Mars · Projects', t: 'Things I’ve built', href: '#projects',
       b: '<ul><li><span><strong>THE BLANK</strong>: home-service booking platform, built end to end</span></li><li><span><strong>Online Quiz Platform</strong> with automatic scoring and Power BI analytics</span></li><li><span><strong>Inventory &amp; Sales Analytics</strong> with Power BI dashboards</span></li><li><span><strong>Data analysis &amp; visualization</strong> with Python and Scikit-learn</span></li></ul>' },
-    leadership: { g: 'jupiter', k: 'Jupiter · Leadership', t: 'Leadership & achievements', href: '#leadership',
+    leadership: { g: 'jupiter', k: 'Jupiter · Leadership', t: 'Leadership & achievements', href: '#experience',
       b: '<ul><li><span><strong>Student Coordinator</strong>, TCSC–ONGC–CSIR (NIO) Research Webinar 2026–27</span></li><li><span>Class Representative, Student Manager, Anchoring Head and DLLE Student Manager</span></li><li><span><strong>Best Boy</strong> of the IT / DS / AI-ML Department; 1st at Techbit 5.0 and Funbaazi</span></li><li><span>Featured on <strong>The Indian Game Show</strong> and <strong>Tum Ho Naa</strong> on Sony TV</span></li></ul>' },
     research: { g: 'saturn', k: 'Saturn · Research', t: 'Research case studies', href: '#research',
       b: '<ul><li><span><strong>Crop Yield Prediction</strong> with Random Forest, LightGBM and XGBoost, published in IJRAR</span></li><li><span><strong>AI coral reef health monitoring</strong>, my M.Sc. research, in progress</span></li><li><span><strong>Crop diagnosis</strong> with digital image processing and CNNs</span></li><li><span><strong>Zonal Earth surface temperature</strong> prediction</span></li></ul><p><a href="https://www.ijrar.org/papers/IJRAR1ENP023.pdf" target="_blank" rel="noopener">Read the published paper (PDF) ↗</a></p>' },
